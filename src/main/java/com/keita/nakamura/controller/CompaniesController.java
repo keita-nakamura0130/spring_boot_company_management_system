@@ -16,11 +16,14 @@ public class CompaniesController {
     @Autowired
     CompanyMapper CompanyMapper;
     
-    @RequestMapping
+    /**
+     * 会社一覧
+     */
+    @RequestMapping(value = "/companies/index")
     public String index(Model model) {
         List<Company> companies = CompanyMapper.findAll();
         model.addAttribute("companies", companies);
         
-        return "index";
+        return "/companies/index";
     }
 }
