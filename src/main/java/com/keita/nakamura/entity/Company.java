@@ -12,12 +12,12 @@ public class Company {
     /**
      * 会社名
      */
-    private String companyName;
+    private String name;
 
     /**
-     * 代表者名
+     * 代表者
      */
-    private String representativeName;
+    private String representative;
 
     /**
      * 電話番号
@@ -79,32 +79,32 @@ public class Company {
      * 
      * @return
      */
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
     /**
      * 
-     * @param companyName
+     * @param name
      */
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * 
      * @return
      */
-    public String getRepresentativeName() {
-        return representativeName;
+    public String getRepresentative() {
+        return representative;
     }
 
     /**
      * 
-     * @param representativeName
+     * @param representative
      */
-    public void setRepresentativeName(String representativeName) {
-        this.representativeName = representativeName;
+    public void setRepresentative(String representative) {
+        this.representative = representative;
     }
 
     /**
