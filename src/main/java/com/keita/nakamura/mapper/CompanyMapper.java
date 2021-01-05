@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.keita.nakamura.entity.Company;
 
+/**
+ * Companyマッパー
+ */
 @Mapper
 public interface CompanyMapper {
     List<Company> findAll();
