@@ -60,6 +60,7 @@ public class Company {
     private String deleted;
 
     /**
+     * IDゲッター
      * 
      * @return
      */
@@ -68,6 +69,7 @@ public class Company {
     }
 
     /**
+     * IDセッター
      * 
      * @param id
      */
@@ -76,6 +78,7 @@ public class Company {
     }
 
     /**
+     * 会社名ゲッター
      * 
      * @return
      */
@@ -84,6 +87,7 @@ public class Company {
     }
 
     /**
+     * 会社名セッター
      * 
      * @param name
      */
@@ -92,6 +96,7 @@ public class Company {
     }
 
     /**
+     * 代表者ゲッター
      * 
      * @return
      */
@@ -100,6 +105,7 @@ public class Company {
     }
 
     /**
+     * 代表者セッター
      * 
      * @param representative
      */
@@ -108,6 +114,7 @@ public class Company {
     }
 
     /**
+     * 電話番号ゲッター
      * 
      * @return
      */
@@ -116,6 +123,7 @@ public class Company {
     }
 
     /**
+     * 電話番号セッター
      * 
      * @param phoneNumber
      */
@@ -124,6 +132,7 @@ public class Company {
     }
 
     /**
+     * 郵便番号ゲッター
      * 
      * @return
      */
@@ -132,6 +141,7 @@ public class Company {
     }
 
     /**
+     * 郵便番号セッター
      * 
      * @param postalCode
      */
@@ -140,6 +150,7 @@ public class Company {
     }
 
     /**
+     * 都道府県ゲッター
      * 
      * @return
      */
@@ -148,6 +159,7 @@ public class Company {
     }
 
     /**
+     * 都道府県セッター
      * 
      * @param prefectureCode
      */
@@ -156,6 +168,7 @@ public class Company {
     }
 
     /**
+     * 住所ゲッター
      * 
      * @return
      */
@@ -164,6 +177,7 @@ public class Company {
     }
 
     /**
+     * 住所セッター
      * 
      * @param address
      */
@@ -172,6 +186,7 @@ public class Company {
     }
 
     /**
+     * メールアドレスゲッター
      * 
      * @return
      */
@@ -180,6 +195,7 @@ public class Company {
     }
 
     /**
+     * メールアドレスセッター
      * 
      * @param mailAddress
      */
@@ -188,6 +204,7 @@ public class Company {
     }
 
     /**
+     * 作成日時ゲッター
      * 
      * @return
      */
@@ -196,6 +213,7 @@ public class Company {
     }
 
     /**
+     * 作成日時セッター
      * 
      * @param created
      */
@@ -204,6 +222,7 @@ public class Company {
     }
 
     /**
+     * 更新日時ゲッター
      * 
      * @return
      */
@@ -212,6 +231,7 @@ public class Company {
     }
 
     /**
+     * 更新日時セッター
      * 
      * @param modified
      */
@@ -220,6 +240,7 @@ public class Company {
     }
 
     /**
+     * 削除日時ゲッター
      * 
      * @return
      */
@@ -228,6 +249,7 @@ public class Company {
     }
 
     /**
+     * 削除日時セッター
      * 
      * @param deleted
      */
