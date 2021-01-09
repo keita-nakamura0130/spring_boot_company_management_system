@@ -131,9 +131,9 @@
                             </button>
                             <ul class="dropdown-menu action-list">
                               <li class="text-center">
-                                <a href="" class="block">詳細</a>
-                                <a href="" class="block">編集</a>
-                                <a href="" class="block">削除</a>
+                                <a th:href="@{'/companies/show/' + ${company.id}}" class="block">詳細</a>
+                                <a th:href="@{'/companies/edit/' + ${company.id}}" class="block">編集</a>
+                                <a th:href="@{'/companies/edit/' + ${compamy.id}}" class="block">削除</a>
                               </li>
                             </ul>
                           </div>
