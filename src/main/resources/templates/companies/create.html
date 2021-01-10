@@ -97,31 +97,31 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label for="name">会社名</label>
-                      <input type="text" name="name" th:value=${company.name} class="form-control">
+                      <input type="text" name="name" th:value=${company.name} id="name" class="form-control">
                       <div th:if="${#fields.hasErrors('name')}" th:errors="${company.name}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="representative">代表者</label>
-                      <input type="text" name="representative" th:value="${company.representative}" class="form-control">
+                      <input type="text" name="representative" th:value="${company.representative}" id="representative" class="form-control">
                       <div th:if="${#fields.hasErrors('representative')}" th:errors="${company.representative}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="phoneNumber">電話番号</label>
-                      <input type="text" name="phoneNumber" th:value="${company.phoneNumber}" class="form-control">
+                      <input type="text" name="phoneNumber" th:value="${company.phoneNumber}" id="phoneNumber" class="form-control">
                       <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${company.phoneNumber}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="postalCode">郵便番号</label>
-                      <input type="text" name="postalCode" th:value="${company.postalCode}" class="form-control">
+                      <input type="text" name="postalCode" th:value="${company.postalCode}" id="postalCode" class="form-control">
                       <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${company.postalCode}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="prefectureCode">都道府県</label>
-                      <select name="prefectureCode" class="form-control">
+                      <select name="prefectureCode" id="prefectureCode" class="form-control">
                         <option value="" selected>選択してください</option>
                         <option value="1">北海道</option>
                         <option value="2">青森県</option>
@@ -176,13 +176,13 @@
 
                     <div class="form-group">
                       <label for="address">住所(都道府県以降)</label>
-                      <input type="text" name="address" th:value="${company.address}" class="form-control">
+                      <input type="text" name="address" th:value="${company.address}" id="address" class="form-control">
                       <div th:if="${#fields.hasErrors('address')}" th:errors="${company.address}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="mailAddress">メールアドレス</label>
-                      <input type="email" name="mailAddress" th:value="${company.mailAddress}" class="form-control">
+                      <input type="email" name="mailAddress" th:value="${company.mailAddress}" id="mailAddress" class="form-control">
                       <div th:if="${#fields.hasErrors('mailAddress')}" th:errors="${company.mailAddress}" class="has-error"></div>
                     </div>
                   </div>
