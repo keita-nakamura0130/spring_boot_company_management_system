@@ -22,4 +22,11 @@ public interface CompanyMapper {
      * @param id
      */
     Company findById(int id);
+
+    /**
+     * 会社を追加
+     *
+     * @param company
+     */
+    void insert(Company company);
 }

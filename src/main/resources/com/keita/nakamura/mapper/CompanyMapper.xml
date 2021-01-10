@@ -9,4 +9,8 @@
     <select id="findById" resultType="com.keita.nakamura.entity.Company">
         SELECT * FROM companies WHERE id = #{id};
     </select>
+    <insert id="insert">
+        INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
+        VALUES (1, #{name}, #{representative}, #{phone_number}, #{postal_code}, #{prefecture_code}, #{address}, #{mail_address}, NOW(), NOW());
+    </insert>
 </mapper>
