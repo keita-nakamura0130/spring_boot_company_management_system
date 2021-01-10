@@ -1,5 +1,9 @@
 package com.keita.nakamura.entity;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 /**
  * Companyクラス
  */
@@ -12,36 +16,51 @@ public class Company {
     /**
      * 会社名
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 50, message="50文字以内で入力してください")
     private String name;
 
     /**
      * 代表者
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 20, message="20文字以内で入力してください")
     private String representative;
 
     /**
      * 電話番号
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 11, message="11文字以内で入力してください")
     private String phoneNumber;
 
     /**
      * 郵便番号
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 7, message="7文字以内で入力してください")
     private String postalCode;
 
     /**
      * 都道府県コード
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 2, message="選択してください")
     private String prefectureCode;
 
     /**
      * 住所
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 100, message="100文字以内で入力してください")
     private String address;
 
     /**
      * メールアドレス
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 100, message="100文字以内で入力してください")
+    @Email(message = "メール形式で入力してください")
     private String mailAddress;
 
     /**

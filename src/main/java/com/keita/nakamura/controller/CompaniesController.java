@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.keita.nakamura.entity.Company;
 import com.keita.nakamura.mapper.CompanyMapper;
@@ -52,5 +56,29 @@ public class CompaniesController {
         model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "companies/show";
+    }
+
+    /**
+     * 会社追加画面
+     */
+    @RequestMapping(value = "/companies/create", method = RequestMethod.GET)
+    public String create(Model model) {
+        Company company = new Company();
+        model.addAttribute("company", company);
+
+        return "companies/create";
+    }
+
+    /**
+     * 会社追加
+     */
+    @RequestMapping(value = "/companies/create", method = RequestMethod.POST)
+    public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult) {
+        if (bidingResult.hasErrors()) {
+            return "companies/create";
+        }
+        CompanyMapper.insert(company);
+
+        return "redirect:/companies/index";
     }
 }
