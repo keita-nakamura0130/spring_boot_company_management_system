@@ -11,5 +11,15 @@ import com.keita.nakamura.entity.Company;
  */
 @Mapper
 public interface CompanyMapper {
+    /**
+     *  会社一覧を取得
+     */
     List<Company> findAll();
+
+    /**
+     * IDより会社を1件取得
+     *
+     * @param id
+     */
+    Company findById(int id);
 }
