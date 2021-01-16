@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
 import com.keita.nakamura.mapper.CompanyMapper;
@@ -73,11 +74,13 @@ public class CompaniesController {
      * 会社追加
      */
     @RequestMapping(value = "/companies/create", method = RequestMethod.POST)
-    public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult) {
+    public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
         if (bidingResult.hasErrors()) {
             return "companies/create";
         }
         CompanyMapper.insert(company);
+
+        redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
 
         return "redirect:/companies/index";
     }
