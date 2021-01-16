@@ -29,4 +29,11 @@ public interface CompanyMapper {
      * @param company
      */
     void insert(Company company);
+
+    /**
+     * 会社を編集
+     *
+     * @param company
+     */
+    void update(Company company);
 }
