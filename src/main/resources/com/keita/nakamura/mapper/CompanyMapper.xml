@@ -18,4 +18,7 @@
         SET user_id = 1, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
         WHERE id = #{id};
     </update>
+    <delete id="delete">
+        UPDATE companies SET deleted = NOW() WHERE id = #{id};
+    </delete>
 </mapper>
