@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
 import com.keita.nakamura.mapper.CompanyMapper;
+import com.keita.nakamura.service.CompanyService;
 
 /**
  * Companiesコントローラー
@@ -25,7 +24,7 @@ import com.keita.nakamura.mapper.CompanyMapper;
 public class CompaniesController {
 
     @Autowired
-    CompanyMapper CompanyMapper;
+    CompanyService CompanyService;
 
     /**
      * 都道府県リスト(都道府県コードを都道府県に変換するために使用)
@@ -40,7 +39,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/index")
     public String index(Model model) {
-        List<Company> companies = CompanyMapper.findAll();
+        List<Company> companies = CompanyService.findAll();
         model.addAttribute("companies", companies);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -53,7 +52,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/show/{id}")
     public String show(@PathVariable int id, Model model) {
-        Company company = CompanyMapper.findById(id);
+        Company company = CompanyService.findById(id);
         model.addAttribute("company", company);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -80,7 +79,7 @@ public class CompaniesController {
         if (bidingResult.hasErrors()) {
             return "companies/create";
         }
-        CompanyMapper.insert(company);
+        CompanyService.insert(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
 
@@ -92,7 +91,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        Company company = CompanyMapper.findById(id);
+        Company company = CompanyService.findById(id);
         model.addAttribute("company", company);
 
         return "companies/edit";
@@ -106,7 +105,7 @@ public class CompaniesController {
         if (bidingResult.hasErrors()) {
             return "companies/edit";
         }
-        CompanyMapper.update(company);
+        CompanyService.update(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を編集しました。");
 
@@ -118,7 +117,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/delete/{id}")
     public String delete(@PathVariable int id, Model model) {
-        Company company = CompanyMapper.findById(id);
+        Company company = CompanyService.findById(id);
         model.addAttribute("company", company);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -131,7 +130,7 @@ public class CompaniesController {
      */
     @PostMapping(value = "/companies/delete/{id}")
     public String destroy(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        CompanyMapper.delete(id);
+        CompanyService.delete(id);
 
         redirectAttributes.addFlashAttribute("success", "会社を削除しました。");
 
