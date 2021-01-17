@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keita.nakamura.mapper.EmployeeMapper">
+    <select id="findAll" resultType="com.keita.nakamura.entity.Employee">
+        SELECT * FROM employees WHERE company_id = #{companyId} AND deleted is NULL;
+    </select>
+    <select id="findById" resultType="com.keita.nakamura.entity.Employee">
+        SELECT * FROM companies WHERE id = #{id};
+    </select>
+    <insert id="insert">
+        INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
+        VALUES (1, #{name}, #{representative}, #{phoneNumber}, #{postalCode}, #{prefectureCode}, #{address}, #{mailAddress}, NOW(), NOW());
+    </insert>
+    <update id="update">
+        UPDATE companies
+        SET user_id = 1, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        WHERE id = #{id};
+    </update>
+    <delete id="delete">
+        UPDATE companies SET deleted = NOW() WHERE id = #{id};
+    </delete>
+</mapper>
