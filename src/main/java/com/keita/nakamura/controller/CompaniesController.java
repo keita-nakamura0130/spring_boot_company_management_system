@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
-import com.keita.nakamura.mapper.CompanyMapper;
 import com.keita.nakamura.service.CompanyService;
 
 /**
