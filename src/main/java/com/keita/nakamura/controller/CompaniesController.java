@@ -38,7 +38,7 @@ public class CompaniesController {
     /**
      * 会社一覧
      */
-    @RequestMapping(value = "/companies/index")
+    @GetMapping(value = "/companies/index")
     public String index(Model model) {
         List<Company> companies = CompanyMapper.findAll();
         model.addAttribute("companies", companies);
@@ -51,7 +51,7 @@ public class CompaniesController {
     /**
      * 会社詳細
      */
-    @RequestMapping(value = "/companies/show/{id}")
+    @GetMapping(value = "/companies/show/{id}")
     public String show(@PathVariable int id, Model model) {
         Company company = CompanyMapper.findById(id);
         model.addAttribute("company", company);
@@ -64,7 +64,7 @@ public class CompaniesController {
     /**
      * 会社追加画面
      */
-    @RequestMapping(value = "/companies/create", method = RequestMethod.GET)
+    @GetMapping(value = "/companies/create")
     public String create(Model model) {
         Company company = new Company();
         model.addAttribute("company", company);
@@ -75,7 +75,7 @@ public class CompaniesController {
     /**
      * 会社追加
      */
-    @RequestMapping(value = "/companies/create", method = RequestMethod.POST)
+    @PostMapping(value = "/companies/create")
     public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
         if (bidingResult.hasErrors()) {
             return "companies/create";
