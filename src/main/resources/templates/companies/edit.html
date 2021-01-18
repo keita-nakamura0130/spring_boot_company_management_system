@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>会社編集 | 会社管理システム</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/dist/css/adminlte.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="/companies/index" class="brand-link">
+        <span class="brand-text font-weight-light">　会社管理システム</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+              <a href="/companies/index" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  会社一覧
+                  <i class="right"></i>
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/companies/create" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  会社追加
+                  <i class="right"></i>
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>編集</h1>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- jquery validation -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">会社編集</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form th:action="@{/companies/edit/{id} (id = ${company.id})}" method="POST" th:object="${company}">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="name">会社名</label>
+                      <input type="text" name="name" th:value=${company.name} id="name" class="form-control">
+                      <div th:if="${#fields.hasErrors('name')}" th:errors="${company.name}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="representative">代表者</label>
+                      <input type="text" name="representative" th:value="${company.representative}" id="representative" class="form-control">
+                      <div th:if="${#fields.hasErrors('representative')}" th:errors="${company.representative}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="phoneNumber">電話番号</label>
+                      <input type="text" name="phoneNumber" th:value="${company.phoneNumber}" id="phoneNumber" class="form-control">
+                      <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${company.phoneNumber}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="postalCode">郵便番号</label>
+                      <input type="text" name="postalCode" th:value="${company.postalCode}" id="postalCode" class="form-control">
+                      <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${company.postalCode}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="prefectureCode">都道府県</label>
+                      <select name="prefectureCode" id="prefectureCode" class="form-control">
+                        <option value="">選択してください</option>
+                        <option value="1" th:selected="${company.prefectureCode == '1'}">北海道</option>
+                        <option value="2" th:selected="${company.prefectureCode == '2'}">青森県</option>
+                        <option value="3" th:selected="${company.prefectureCode == '3'}">岩手県</option>
+                        <option value="4" th:selected="${company.prefectureCode == '4'}">宮城県</option>
+                        <option value="5" th:selected="${company.prefectureCode == '5'}">秋田県</option>
+                        <option value="6" th:selected="${company.prefectureCode == '6'}">山形県</option>
+                        <option value="7" th:selected="${company.prefectureCode == '7'}">福島県</option>
+                        <option value="8" th:selected="${company.prefectureCode == '8'}">茨城県</option>
+                        <option value="9" th:selected="${company.prefectureCode == '9'}">栃木県</option>
+                        <option value="10" th:selected="${company.prefectureCode == '10'}">群馬県</option>
+                        <option value="11" th:selected="${company.prefectureCode == '11'}">埼玉県</option>
+                        <option value="12" th:selected="${company.prefectureCode == '12'}">千葉県</option>
+                        <option value="13" th:selected="${company.prefectureCode == '13'}">東京都</option>
+                        <option value="14" th:selected="${company.prefectureCode == '14'}">神奈川県</option>
+                        <option value="15" th:selected="${company.prefectureCode == '15'}">新潟県</option>
+                        <option value="16" th:selected="${company.prefectureCode == '16'}">富山県</option>
+                        <option value="17" th:selected="${company.prefectureCode == '17'}">石川県</option>
+                        <option value="18" th:selected="${company.prefectureCode == '18'}">福井県</option>
+                        <option value="19" th:selected="${company.prefectureCode == '19'}">山梨県</option>
+                        <option value="20" th:selected="${company.prefectureCode == '20'}">長野県</option>
+                        <option value="21" th:selected="${company.prefectureCode == '21'}">岐阜県</option>
+                        <option value="22" th:selected="${company.prefectureCode == '22'}">静岡県</option>
+                        <option value="23" th:selected="${company.prefectureCode == '23'}">愛知県</option>
+                        <option value="24" th:selected="${company.prefectureCode == '24'}">三重県</option>
+                        <option value="25" th:selected="${company.prefectureCode == '25'}">滋賀県</option>
+                        <option value="26" th:selected="${company.prefectureCode == '26'}">京都府</option>
+                        <option value="27" th:selected="${company.prefectureCode == '27'}">大阪府</option>
+                        <option value="28" th:selected="${company.prefectureCode == '28'}">兵庫県</option>
+                        <option value="29" th:selected="${company.prefectureCode == '29'}">奈良県</option>
+                        <option value="30" th:selected="${company.prefectureCode == '30'}">和歌山県</option>
+                        <option value="31" th:selected="${company.prefectureCode == '31'}">鳥取県</option>
+                        <option value="32" th:selected="${company.prefectureCode == '32'}">島根県</option>
+                        <option value="33" th:selected="${company.prefectureCode == '33'}">岡山県</option>
+                        <option value="34" th:selected="${company.prefectureCode == '34'}">広島県</option>
+                        <option value="35" th:selected="${company.prefectureCode == '35'}">山口県</option>
+                        <option value="36" th:selected="${company.prefectureCode == '36'}">徳島県</option>
+                        <option value="37" th:selected="${company.prefectureCode == '37'}">香川県</option>
+                        <option value="38" th:selected="${company.prefectureCode == '38'}">愛媛県</option>
+                        <option value="39" th:selected="${company.prefectureCode == '39'}">高知県</option>
+                        <option value="40" th:selected="${company.prefectureCode == '40'}">福岡県</option>
+                        <option value="41" th:selected="${company.prefectureCode == '41'}">佐賀県</option>
+                        <option value="42" th:selected="${company.prefectureCode == '42'}">長崎県</option>
+                        <option value="43" th:selected="${company.prefectureCode == '43'}">熊本県</option>
+                        <option value="44" th:selected="${company.prefectureCode == '44'}">大分県</option>
+                        <option value="45" th:selected="${company.prefectureCode == '45'}">宮崎県</option>
+                        <option value="46" th:selected="${company.prefectureCode == '46'}">鹿児島県</option>
+                        <option value="47" th:selected="${company.prefectureCode == '47'}">沖縄県</option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('prefectureCode')}" th:errors="${company.prefectureCode}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="address">住所(都道府県以降)</label>
+                      <input type="text" name="address" th:value="${company.address}" id="address" class="form-control">
+                      <div th:if="${#fields.hasErrors('address')}" th:errors="${company.address}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="mailAddress">メールアドレス</label>
+                      <input type="email" name="mailAddress" th:value="${company.mailAddress}" id="mailAddress" class="form-control">
+                      <div th:if="${#fields.hasErrors('mailAddress')}" th:errors="${company.mailAddress}" class="has-error"></div>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">編集</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <strong>Copyright &copy; 2020-2021 Keita Nakamura</strong> All rights reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./../wrapper -->
+
+  <!-- jQuery -->
+  <script th:src="@{/assets/AdminLTE/plugins/jquery/jquery.min.js}"></script>
+  <!-- Bootstrap 4 -->
+  <script th:src="@{/assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- jquery-validation -->
+  <script th:src="@{/assets/AdminLTE/plugins/jquery-validation/jquery.validate.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/jquery-validation/additional-methods.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/assets/AdminLTE/dist/js/adminlte.min.js}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script th:src="@{/assets/AdminLTE/dist/js/demo.js}"></script>
+  <!-- Page specific script -->
+  <script>
+    $(function () {
+      $.validator.setDefaults({
+        submitHandler: function () {
+          alert("Form successful submitted!");
+        }
+      });
+      $('#quickForm').validate({
+        rules: {
+          email: {
+            required: true,
+            email: true,
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          terms: {
+            required: true
+          },
+        },
+        messages: {
+          email: {
+            required: "Please enter a email address",
+            email: "Please enter a vaild email address"
+          },
+          password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+          },
+          terms: "Please accept our terms"
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

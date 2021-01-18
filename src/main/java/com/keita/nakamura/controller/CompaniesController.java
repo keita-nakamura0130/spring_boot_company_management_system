@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -81,6 +83,32 @@ public class CompaniesController {
         CompanyMapper.insert(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
+
+        return "redirect:/companies/index";
+    }
+
+    /**
+     * 会社編集画面
+     */
+    @GetMapping(value = "/companies/edit/{id}")
+    public String edit(@PathVariable int id, Model model) {
+        Company company = CompanyMapper.findById(id);
+        model.addAttribute("company", company);
+
+        return "companies/edit";
+    }
+
+    /**
+     * 会社編集
+     */
+    @PostMapping(value = "/companies/edit/{id}")
+    public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
+        if (bidingResult.hasErrors()) {
+            return "companies/edit";
+        }
+        CompanyMapper.update(company);
+
+        redirectAttributes.addFlashAttribute("success", "会社を編集しました。");
 
         return "redirect:/companies/index";
     }
