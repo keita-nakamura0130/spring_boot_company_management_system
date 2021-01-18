@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keita.nakamura.mapper.CompanyMapper">
     <select id="findAll" resultType="com.keita.nakamura.entity.Company">
-        SELECT * FROM companies;
+        SELECT * FROM companies WHERE deleted is NULL;
     </select>
     <select id="findById" resultType="com.keita.nakamura.entity.Company">
         SELECT * FROM companies WHERE id = #{id};
@@ -18,4 +18,7 @@
         SET user_id = 1, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
         WHERE id = #{id};
     </update>
+    <delete id="delete">
+        UPDATE companies SET deleted = NOW() WHERE id = #{id};
+    </delete>
 </mapper>

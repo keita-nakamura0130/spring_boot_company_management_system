@@ -112,4 +112,29 @@ public class CompaniesController {
 
         return "redirect:/companies/index";
     }
+
+    /**
+     * 会社削除画面
+     */
+    @GetMapping(value = "/companies/delete/{id}")
+    public String delete(@PathVariable int id, Model model) {
+        Company company = CompanyMapper.findById(id);
+        model.addAttribute("company", company);
+
+        model.addAttribute("PREFECTURES", PREFECTURES);
+
+        return "companies/delete";
+    }
+
+    /**
+     * 会社削除
+     */
+    @PostMapping(value = "/companies/delete/{id}")
+    public String destroy(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        CompanyMapper.delete(id);
+
+        redirectAttributes.addFlashAttribute("success", "会社を削除しました。");
+
+        return "redirect:/companies/index";
+    }
 }

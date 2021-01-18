@@ -36,4 +36,11 @@ public interface CompanyMapper {
      * @param company
      */
     void update(Company company);
+
+    /**
+     * 会社を削除
+     *
+     * @param id
+     */
+    void delete(int id);
 }
