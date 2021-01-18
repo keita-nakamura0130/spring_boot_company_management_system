@@ -52,35 +52,37 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form th:action="@{/companies/create}" method="POST" th:object="${company}">
+                <form th:action="@{/employees/create/{companyId} (companyId = ${employee.companyId})}" method="POST" th:object="${employee}">
                   <div class="card-body">
+                    <input type="hidden" name="companyId" th:value="${employee.companyId}">
+
                     <div class="form-group">
                       <label for="name">社員名</label>
-                      <input type="text" name="name" th:value=${company.name} id="name" class="form-control">
-                      <div th:if="${#fields.hasErrors('name')}" th:errors="${company.name}" class="has-error"></div>
+                      <input type="text" name="name" th:value=${employee.name} id="name" class="form-control">
+                      <div th:if="${#fields.hasErrors('name')}" th:errors="${employee.name}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
-                      <label for="representative">代表者</label>
-                      <input type="text" name="representative" th:value="${company.representative}" id="representative"
+                      <label for="dapartment">部署</label>
+                      <input type="text" name="department" th:value="${employee.department}" id="department"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('representative')}" th:errors="${company.representative}"
+                      <div th:if="${#fields.hasErrors('department')}" th:errors="${employee.department}"
                         class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="phoneNumber">電話番号</label>
-                      <input type="text" name="phoneNumber" th:value="${company.phoneNumber}" id="phoneNumber"
+                      <input type="text" name="phoneNumber" th:value="${employee.phoneNumber}" id="phoneNumber"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${company.phoneNumber}"
+                      <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${employee.phoneNumber}"
                         class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="postalCode">郵便番号</label>
-                      <input type="text" name="postalCode" th:value="${company.postalCode}" id="postalCode"
+                      <input type="text" name="postalCode" th:value="${employee.postalCode}" id="postalCode"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${company.postalCode}"
+                      <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${employee.postalCode}"
                         class="has-error"></div>
                     </div>
 
@@ -136,22 +138,22 @@
                         <option value="46">鹿児島県</option>
                         <option value="47">沖縄県</option>
                       </select>
-                      <div th:if="${#fields.hasErrors('prefectureCode')}" th:errors="${company.prefectureCode}"
+                      <div th:if="${#fields.hasErrors('prefectureCode')}" th:errors="${employee.prefectureCode}"
                         class="has-error"></div>
                     </div>
 
                     <div class="form-group">
                       <label for="address">住所(都道府県以降)</label>
-                      <input type="text" name="address" th:value="${company.address}" id="address" class="form-control">
-                      <div th:if="${#fields.hasErrors('address')}" th:errors="${company.address}" class="has-error">
+                      <input type="text" name="address" th:value="${employee.address}" id="address" class="form-control">
+                      <div th:if="${#fields.hasErrors('address')}" th:errors="${employee.address}" class="has-error">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label for="mailAddress">メールアドレス</label>
-                      <input type="email" name="mailAddress" th:value="${company.mailAddress}" id="mailAddress"
+                      <input type="email" name="mailAddress" th:value="${employee.mailAddress}" id="mailAddress"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('mailAddress')}" th:errors="${company.mailAddress}"
+                      <div th:if="${#fields.hasErrors('mailAddress')}" th:errors="${employee.mailAddress}"
                         class="has-error"></div>
                     </div>
                   </div>

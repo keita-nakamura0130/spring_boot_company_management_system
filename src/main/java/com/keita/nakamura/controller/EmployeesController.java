@@ -63,8 +63,9 @@ public class EmployeesController {
      * 社員追加画面
      */
     @GetMapping(value = "/employees/create/{companyId}")
-    public String create(Model model) {
+    public String create(@PathVariable int companyId, Model model) {
         Employee employee = new Employee();
+        employee.setCompanyId(companyId);
         model.addAttribute("employee", employee);
 
         return "employees/create";
@@ -74,15 +75,15 @@ public class EmployeesController {
      * 社員追加
      */
     @PostMapping(value = "/employees/create/{companyId}")
-    public String store(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
+    public String store(@ModelAttribute @Validated Employee employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId) {
         if (bidingResult.hasErrors()) {
             return "employees/create";
         }
-        EmployeeService.insert(Employee);
+        EmployeeService.insert(employee);
 
         redirectAttributes.addFlashAttribute("success", "社員を追加しました。");
 
-        return "redirect:/employees/index";
+        return "redirect:/employees/index/{companyId}";
     }
 
     /**

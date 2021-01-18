@@ -10,8 +10,8 @@
         SELECT * FROM employees WHERE company_id = #{companyId} AND id = #{id} AND deleted is NULL;
     </select>
     <insert id="insert">
-        INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
-        VALUES (1, #{name}, #{representative}, #{phoneNumber}, #{postalCode}, #{prefectureCode}, #{address}, #{mailAddress}, NOW(), NOW());
+        INSERT INTO employees (company_id, name, department, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
+        VALUES (#{companyId}, #{name}, #{department}, #{phoneNumber}, #{postalCode}, #{prefectureCode}, #{address}, #{mailAddress}, NOW(), NOW());
     </insert>
     <update id="update">
         UPDATE companies
