@@ -113,8 +113,6 @@
                         <th>都道府県</th>
                         <th>住所</th>
                         <th>メールアドレス</th>
-                        <th>作成日時</th>
-                        <th>更新日時</th>
                         <th class="actions">機能</th>
                       </tr>
                     </thead>
@@ -128,8 +126,6 @@
                         <td th:text="${PREFECTURES[company.prefectureCode]}"></td>
                         <td th:text="${company.address}"></td>
                         <td th:text="${company.mailAddress}"></td>
-                        <td th:text="${company.created}"></td>
-                        <td th:text="${company.modified}"></td>
                         <td class="actions">
                           <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
