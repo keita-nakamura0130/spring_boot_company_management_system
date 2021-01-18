@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>社員削除 | 会社管理システム</title>
+  <title>社員詳細 | 会社管理システム</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -37,7 +37,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>削除</h1>
+              <h1>詳細</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -50,7 +50,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">社員削除</h3>
+                  <h3 class="card-title">社員詳細</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -64,45 +64,43 @@
                     <tbody>
                       <tr>
                         <th scope="row">ID</th>
-                        <td th:text="${company.id}"></td>
-                      </tr>
-                      <tr>
+                        <td th:text="${employee.id}"></td>
                       </tr>
                       <tr>
                         <td>社員名</td>
-                        <td th:text="${company.name}"></td>
+                        <td th:text="${employee.name}"></td>
                       </tr>
                       <tr>
-                        <td>代表者</td>
-                        <td th:text="${company.representative}"></td>
+                        <td>部署</td>
+                        <td th:text="${employee.department}"></td>
                       </tr>
                       <tr>
                         <td>電話番号</td>
-                        <td th:text="${company.phoneNumber}"></td>
+                        <td th:text="${employee.phoneNumber}"></td>
                       </tr>
                       <tr>
                         <td>郵便番号</td>
-                        <td th:text="${company.postalCode}"></td>
+                        <td th:text="${employee.postalCode}"></td>
                       </tr>
                       <tr>
                         <td>都道府県</td>
-                        <td th:text="${PREFECTURES[company.prefectureCode]}"></td>
+                        <td th:text="${PREFECTURES[employee.prefectureCode]}"></td>
                       </tr>
                       <tr>
                         <td>住所</td>
-                        <td th:text="${company.address}"></td>
+                        <td th:text="${employee.address}"></td>
                       </tr>
                       <tr>
                         <td>メールアドレス</td>
-                        <td th:text="${company.mailAddress}"></td>
+                        <td th:text="${employee.mailAddress}"></td>
                       </tr>
                       <tr>
                         <td>作成日時</td>
-                        <td th:text="${company.created}"></td>
+                        <td th:text="${employee.created}"></td>
                       </tr>
                       <tr>
                         <td>更新日時</td>
-                        <td th:text="${company.modified}"></td>
+                        <td th:text="${employee.modified}"></td>
                       </tr>
                     </tbody>
                   </table>

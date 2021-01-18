@@ -92,9 +92,9 @@
                             </button>
                             <ul class="dropdown-menu action-list">
                               <li class="text-center">
-                                <a th:href="@{'/companies/show/' + ${employee.id}}" class="block">詳細</a>
-                                <a th:href="@{'/companies/edit/' + ${employee.id}}" class="block">編集</a>
-                                <a th:href="@{'/companies/delete/' + ${employee.id}}" class="block">削除</a>
+                                <a th:href="@{'/employees/show/' + ${employee.companyId} + '/' + ${employee.id}}" class="block">詳細</a>
+                                <a th:href="@{'/employees/edit/' + ${employee.companyId} + '/' + ${employee.id}}" class="block">編集</a>
+                                <a th:href="@{'/employees/delete/' + ${employee.companyId} + '/' + ${employee.id}}" class="block">削除</a>
                               </li>
                             </ul>
                           </div>

@@ -21,7 +21,7 @@ public class Employee {
     /**
      * 会社ID
      */
-    private int company_id;
+    private int companyId;
 
     /**
      * 従業員名

@@ -50,7 +50,7 @@ public class EmployeesController {
      * 社員詳細
      */
     @GetMapping(value = "/employees/show/{companyId}/{id}")
-    public String show(@PathVariable int companyId, int id, Model model) {
+    public String show(@PathVariable int companyId, @PathVariable int id, Model model) {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 

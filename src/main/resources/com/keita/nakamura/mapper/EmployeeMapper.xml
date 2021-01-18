@@ -7,7 +7,7 @@
         SELECT * FROM employees WHERE company_id = #{companyId} AND deleted is NULL;
     </select>
     <select id="findById" resultType="com.keita.nakamura.entity.Employee">
-        SELECT * FROM companies WHERE id = #{id};
+        SELECT * FROM employees WHERE company_id = #{companyId} AND id = #{id} AND deleted is NULL;
     </select>
     <insert id="insert">
         INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
