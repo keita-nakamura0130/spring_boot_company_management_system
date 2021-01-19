@@ -24,10 +24,10 @@ public class Employee {
     private int companyId;
 
     /**
-     * 従業員名
+     * 社員名
      */
     @NotBlank(message = "必須入力です")
-    @Size(max = 50, message="50文字以内で入力してください")
+    @Size(max = 20, message="20文字以内で入力してください")
     private String name;
 
     /**
