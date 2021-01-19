@@ -43,7 +43,7 @@ public class CompaniesController {
 
         model.addAttribute("PREFECTURES", PREFECTURES);
 
-        return "/companies/index";
+        return "companies/index";
     }
 
     /**
