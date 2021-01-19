@@ -142,7 +142,8 @@
 
                     <div class="form-group">
                       <label for="address">住所(都道府県以降)</label>
-                      <input type="text" name="address" th:value="${employee.address}" id="address" class="form-control">
+                      <input type="text" name="address" th:value="${employee.address}" id="address"
+                        class="form-control">
                       <div th:if="${#fields.hasErrors('address')}" th:errors="${employee.address}" class="has-error">
                       </div>
                     </div>
