@@ -115,8 +115,8 @@ public class EmployeesController {
     /**
      * 社員削除画面
      */
-    @GetMapping(value = "/employees/delete/{id}")
-    public String delete(@PathVariable int id, Model model) {
+    @GetMapping(value = "/employees/delete/{companyId}/{id}")
+    public String delete(@PathVariable int companyId, @PathVariable int id, Model model) {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
@@ -128,12 +128,12 @@ public class EmployeesController {
     /**
      * 社員削除
      */
-    @PostMapping(value = "/employees/delete/{id}")
-    public String destroy(@PathVariable int id, RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/employees/delete/{companyId}/{id}")
+    public String destroy(@PathVariable int companyId, @PathVariable int id, RedirectAttributes redirectAttributes) {
         EmployeeService.delete(id);
 
         redirectAttributes.addFlashAttribute("success", "社員を削除しました。");
 
-        return "redirect:/employees/index";
+        return "redirect:/employees/index/{companyId}";
     }
 }

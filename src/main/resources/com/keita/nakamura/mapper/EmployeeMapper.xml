@@ -19,6 +19,6 @@
         WHERE id = #{id};
     </update>
     <delete id="delete">
-        UPDATE companies SET deleted = NOW() WHERE id = #{id};
+        UPDATE employees SET deleted = NOW() WHERE id = #{id};
     </delete>
 </mapper>

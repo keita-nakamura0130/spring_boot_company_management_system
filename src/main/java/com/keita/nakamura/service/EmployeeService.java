@@ -38,19 +38,19 @@ public class EmployeeService {
     /**
      * 社員を追加
      *
-     * @param Employee
+     * @param employee
      */
-    public void insert(Employee Employee) {
-        EmployeeMapper.insert(Employee);
+    public void insert(Employee employee) {
+        EmployeeMapper.insert(employee);
     }
 
     /**
      * 社員を編集
      *
-     * @param Employee
+     * @param employee
      */
-    public void update(Employee Employee) {
-        EmployeeMapper.update(Employee);
+    public void update(Employee employee) {
+        EmployeeMapper.update(employee);
     }
 
     /**

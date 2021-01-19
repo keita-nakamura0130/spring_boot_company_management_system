@@ -14,10 +14,10 @@ public interface EmployeeMapper {
     /**
      * 社員一覧を取得
      *
-     * @param CompanyId
+     * @param companyId
      * @return
      */
-    List<Employee> findAll(int CompanyId);
+    List<Employee> findAll(int companyId);
 
     /**
      * IDより社員を1件取得
@@ -29,16 +29,16 @@ public interface EmployeeMapper {
     /**
      * 社員を追加
      *
-     * @param Employee
+     * @param employee
      */
-    void insert(Employee Employee);
+    void insert(Employee employee);
 
     /**
      * 社員を編集
      *
-     * @param Employee
+     * @param employee
      */
-    void update(Employee Employee);
+    void update(Employee employee);
 
     /**
      * 社員を削除
