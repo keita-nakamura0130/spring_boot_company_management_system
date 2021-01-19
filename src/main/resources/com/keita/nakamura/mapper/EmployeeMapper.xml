@@ -7,15 +7,15 @@
         SELECT * FROM employees WHERE company_id = #{companyId} AND deleted is NULL;
     </select>
     <select id="findById" resultType="com.keita.nakamura.entity.Employee">
-        SELECT * FROM employees WHERE company_id = #{companyId} AND id = #{id} AND deleted is NULL;
+        SELECT * FROM employees WHERE id = #{id} AND deleted is NULL;
     </select>
     <insert id="insert">
         INSERT INTO employees (company_id, name, department, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
         VALUES (#{companyId}, #{name}, #{department}, #{phoneNumber}, #{postalCode}, #{prefectureCode}, #{address}, #{mailAddress}, NOW(), NOW());
     </insert>
     <update id="update">
-        UPDATE companies
-        SET user_id = 1, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        UPDATE employees
+        SET name = #{name}, department = #{department}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
         WHERE id = #{id};
     </update>
     <delete id="delete">

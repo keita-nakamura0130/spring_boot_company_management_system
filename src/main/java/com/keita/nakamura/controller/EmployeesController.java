@@ -90,7 +90,7 @@ public class EmployeesController {
      * 社員編集画面
      */
     @GetMapping(value = "/employees/edit/{companyId}/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    public String edit(@PathVariable int companyId, @PathVariable int id, Model model) {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
@@ -101,7 +101,7 @@ public class EmployeesController {
      * 社員編集
      */
     @PostMapping(value = "/employees/edit/{companyId}/{id}")
-    public String update(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, @PathVariable int id) {
         if (bidingResult.hasErrors()) {
             return "employees/edit";
         }
@@ -109,7 +109,7 @@ public class EmployeesController {
 
         redirectAttributes.addFlashAttribute("success", "社員を編集しました。");
 
-        return "redirect:/employees/index";
+        return "redirect:/employees/index/{companyId}";
     }
 
     /**
