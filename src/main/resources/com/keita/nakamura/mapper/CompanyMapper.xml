@@ -7,7 +7,7 @@
         SELECT * FROM companies WHERE deleted is NULL;
     </select>
     <select id="findById" resultType="com.keita.nakamura.entity.Company">
-        SELECT * FROM companies WHERE id = #{id};
+        SELECT * FROM companies WHERE id = #{id} AND deleted is NULL;
     </select>
     <insert id="insert">
         INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
@@ -15,7 +15,7 @@
     </insert>
     <update id="update">
         UPDATE companies
-        SET user_id = 1, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        SET name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
         WHERE id = #{id};
     </update>
     <delete id="delete">
