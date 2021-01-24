@@ -1,9 +1,5 @@
 package com.keita.nakamura.entity;
 
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,24 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-
-    /**
-     * 引数なしコンストラクタ
-     */
-    public User() {
-
-    }
-
-    /**
-     * コンストラクタ
-     *
-     * @param name
-     * @param encode
-     * @param grantList
-     */
-    public User(String name, String encode, List<GrantedAuthority> grantList) {
-
-    }
 
     /**
      * ID
