@@ -14,24 +14,35 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.keita.nakamura.entity.User;
 import com.keita.nakamura.service.UserService;
 
+/**
+ * 認証コントローラー
+ */
 @Controller
-public class LoginController {
+public class AuthController {
 
     @Autowired
     UserService userService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
-    
-    //ログイン画面への遷移
+
+    /**
+     * ログイン画面
+     *
+     * @return
+     */
     @GetMapping(value = "/login")
-    public String getlogin(Model model) {
+    public String getLogin() {
         return "auth/login";
     }
 
-    //ログイン成功時のメニュー画面への遷移
+    /**
+     * ログイン成功時のメニュー画面への遷移
+     *
+     * @return
+     */
     @PostMapping(value = "/login")
-    String postLogin(Model model) {
+    public String postLogin() {
         return "redirect:/companies/index";
     }
 
@@ -54,9 +65,12 @@ public class LoginController {
         if (bidingResult.hasErrors()) {
             return "users/create";
         }
+
+        // パスワードをハッシュ化
         String password = user.getPassword();
         password = passwordEncoder.encode(password);
         user.setPassword(password);
+
         userService.insert(user);
 
         redirectAttributes.addFlashAttribute("success", "ユーザーを追加しました。");
