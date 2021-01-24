@@ -23,7 +23,7 @@ public class UserService  {
     public User findByName(String name) {
         return userMapper.findByName(name);
     }
-    
+
     /**
      * ユーザーを追加
      *

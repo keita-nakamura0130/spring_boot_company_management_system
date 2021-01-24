@@ -15,7 +15,7 @@ public interface UserMapper {
      * @param name
      */
     User findByName(String name);
-    
+
     /**
      * ユーザーを追加
      *
