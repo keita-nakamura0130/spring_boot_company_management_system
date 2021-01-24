@@ -13,12 +13,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
+
+    /**
+     * 引数なしコンストラクタ
+     */
     public User() {
-        
+
     }
 
-    public User(String name2, String encode, List<GrantedAuthority> grantList) {
-        // TODO 自動生成されたコンストラクター・スタブ
+    /**
+     * コンストラクタ
+     *
+     * @param name
+     * @param encode
+     * @param grantList
+     */
+    public User(String name, String encode, List<GrantedAuthority> grantList) {
+
     }
 
     /**
