@@ -25,10 +25,10 @@ public class User {
      * コンストラクタ
      *
      * @param name
-     * @param encode
+     * @param password
      * @param grantList
      */
-    public User(String name, String encode, List<GrantedAuthority> grantList) {
+    public User(String name, String password, List<GrantedAuthority> grantList) {
 
     }
 
