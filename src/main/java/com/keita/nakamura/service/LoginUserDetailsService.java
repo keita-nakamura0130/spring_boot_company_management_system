@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.keita.nakamura.entity.User;
-import com.keita.nakamura.mapper.UserMapper;
 import com.keita.nakamura.security.LoginUserDetails;
 
 /***
@@ -16,15 +15,14 @@ import com.keita.nakamura.security.LoginUserDetails;
 @Service
 public class LoginUserDetailsService implements UserDetailsService {
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        //入力された名前をキーにemployeeテーブルのレコードを1件取得
-        User user = userMapper.findByName(name);
+        User user = userService.findByName(name);
 
         //該当レコードが取得できなかった場合はエラーにする
-        if  (user == null)   {
+        if (user == null) {
             throw new UsernameNotFoundException("Wrong email or password");
         }
 
