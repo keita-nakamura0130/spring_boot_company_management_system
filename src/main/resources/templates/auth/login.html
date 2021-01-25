@@ -34,6 +34,9 @@
           <div class="row">
             <!-- left column -->
             <div class="col-md-12">
+              <div th:if="${isError}" class="alert alert-danger" role="alert">
+                <p>ユーザー名かパスワードに誤りがあります。</p>
+              </div>
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">

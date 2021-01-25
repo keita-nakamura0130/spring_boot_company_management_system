@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.User;
@@ -32,7 +33,14 @@ public class AuthController {
      * @return
      */
     @GetMapping(value = "/login")
-    public String getLogin() {
+    public String getLogin(@RequestParam(value = "error", required = false) String error, Model model) {
+        // エラーメッセージ
+        boolean isError = false;
+        if (error != null) {
+            isError = true;
+        }
+        model.addAttribute("isError", isError);
+
         return "auth/login";
     }
 
