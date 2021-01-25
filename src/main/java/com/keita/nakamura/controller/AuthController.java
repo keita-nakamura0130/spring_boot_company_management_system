@@ -1,6 +1,8 @@
 package com.keita.nakamura.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.User;
+import com.keita.nakamura.security.LoginUserDetails;
 import com.keita.nakamura.service.UserService;
 
 /**
@@ -40,6 +43,15 @@ public class AuthController {
             isError = true;
         }
         model.addAttribute("isError", isError);
+
+        // ログインユーザー情報を取得
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof LoginUserDetails) {
+            LoginUserDetails user = LoginUserDetails.class.cast(authentication.getPrincipal());
+            model.addAttribute("user", user.getUser());
+        } else {
+            model.addAttribute("user", null);
+        }
 
         return "auth/login";
     }
