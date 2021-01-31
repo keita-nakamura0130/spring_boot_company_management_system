@@ -37,6 +37,15 @@ public class AuthController {
      */
     @GetMapping(value = "/login")
     public String getLogin(@RequestParam(value = "error", required = false) String error, Model model) {
+        // ログインしていた場合、会社一覧にリダイレクト
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof LoginUserDetails) {
+            LoginUserDetails user = LoginUserDetails.class.cast(authentication.getPrincipal());
+            if (user != null) {
+                return "redirect:/companies/index";
+            }
+        }
+
         // エラーメッセージ
         boolean isError = false;
         if (error != null) {
