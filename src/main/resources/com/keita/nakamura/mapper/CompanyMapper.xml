@@ -6,6 +6,9 @@
     <select id="findAll" resultType="com.keita.nakamura.entity.Company">
         SELECT * FROM companies WHERE deleted is NULL;
     </select>
+    <select id="findBySearch" resultType="com.keita.nakamura.entity.Company">
+        SELECT * FROM companies WHERE name LIKE '%${name}%' AND deleted is NULL;
+    </select>
     <select id="findById" resultType="com.keita.nakamura.entity.Company">
         SELECT * FROM companies WHERE id = #{id} AND deleted is NULL;
     </select>
