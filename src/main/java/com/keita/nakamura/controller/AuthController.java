@@ -44,15 +44,6 @@ public class AuthController {
         }
         model.addAttribute("isError", isError);
 
-        // ログインユーザー情報を取得
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof LoginUserDetails) {
-            LoginUserDetails user = LoginUserDetails.class.cast(authentication.getPrincipal());
-            model.addAttribute("user", user.getUser());
-        } else {
-            model.addAttribute("user", null);
-        }
-
         return "auth/login";
     }
 
