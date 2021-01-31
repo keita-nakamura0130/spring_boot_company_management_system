@@ -1,5 +1,11 @@
 package com.keita.nakamura.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
@@ -140,5 +147,78 @@ public class CompaniesController {
         redirectAttributes.addFlashAttribute("success", "会社を削除しました。");
 
         return "redirect:/companies/index";
+    }
+
+    /**
+     * CSVインポート画面
+     */
+    @GetMapping(value = "/companies/import")
+    public String csvImport(Model model) {
+
+        return "companies/import";
+    }
+
+    /**
+     * CSVインポート
+     */
+    @PostMapping(value = "/companies/import")
+    public String csvImportExecute(@RequestParam("csv") MultipartFile csv) {
+//        if (bidingResult.hasErrors()) {
+//            return "companies/import";
+//        }
+        
+        List<Company> lines = this.fileContents(csv);
+        
+        for (Company line : lines) {
+            System.out.println(line.getName());
+//            Company company = new Company();
+//            company.setName(line.concat));
+        }
+        
+
+//        CompanyService.insert(company);
+
+//        redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
+
+        return "companies/import";
+    }
+    
+    /**
+     * 
+     *
+     * @param uploadFile
+     * @return
+     */
+    private List<Company> fileContents(MultipartFile uploadFile) {
+        List<String> lines = new ArrayList<>();
+        List<Company> companies = new ArrayList<>();
+        String line = null;
+        try {
+            InputStream stream = uploadFile.getInputStream();           
+            Reader reader = new InputStreamReader(stream);
+            BufferedReader buf= new BufferedReader(reader);
+
+            while((line = buf.readLine()) != null) {
+                String[] split = line.split(",");   
+                
+                Company company = new Company();
+                company.setName(split[0]);
+                company.setRepresentative(split[1]);
+                company.setPhoneNumber(split[2]);
+                company.setPostalCode(split[3]);
+                company.setPrefectureCode(split[4]);
+                company.setAddress(split[5]);
+                company.setMailAddress(split[6]);
+                
+                companies.add(company);
+            }
+            line = buf.readLine();
+
+        } catch (IOException e) {
+            line = "Can't read contents.";
+            lines.add(line);
+            e.printStackTrace();
+        }
+        return companies;
     }
 }
