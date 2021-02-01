@@ -36,10 +36,10 @@ public class CompaniesController {
     /**
      * 都道府県リスト(都道府県コードを都道府県に変換するために使用)
      */
-    public static final String[] PREFECTURES = { null, "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県",
-            "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府",
-            "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県",
-            "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県" };
+    public static final String[] PREFECTURES = { null, "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県",
+            "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県",
+            "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県",
+            "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県" };
 
     /**
      * 会社一覧
@@ -87,7 +87,8 @@ public class CompaniesController {
      * 会社追加
      */
     @PostMapping(value = "/companies/create")
-    public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
+    public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult,
+            RedirectAttributes redirectAttributes) {
         if (bidingResult.hasErrors()) {
             return "companies/create";
         }
@@ -113,7 +114,8 @@ public class CompaniesController {
      * 会社編集
      */
     @PostMapping(value = "/companies/edit/{id}")
-    public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult, RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult,
+            RedirectAttributes redirectAttributes) {
         if (bidingResult.hasErrors()) {
             return "companies/edit";
         }
@@ -162,7 +164,7 @@ public class CompaniesController {
      * CSVインポート
      */
     @PostMapping(value = "/companies/import")
-    public String csvImportExecute(@RequestParam("csv") MultipartFile csv) {
+    public String csvImportExecute(@RequestParam("csv") MultipartFile csv, RedirectAttributes redirectAttributes) {
 //        if (bidingResult.hasErrors()) {
 //            return "companies/import";
 //        }
@@ -170,15 +172,12 @@ public class CompaniesController {
         List<Company> companies = this.getCompanyInstancesFromCsv(csv);
 
         for (Company company : companies) {
-            System.out.println(company.getName());
+            CompanyService.insert(company);
         }
 
+        redirectAttributes.addFlashAttribute("success", "会社をCSVインポートにて追加しました。");
 
-//        CompanyService.insert(company);
-
-//        redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
-
-        return "companies/import";
+        return "redirect:/companies/index";
     }
 
     /**
@@ -193,17 +192,21 @@ public class CompaniesController {
         try {
             InputStream stream = csv.getInputStream();
             Reader reader = new InputStreamReader(stream);
-            BufferedReader buf= new BufferedReader(reader);
+            BufferedReader buf = new BufferedReader(reader);
 
             while ((line = buf.readLine()) != null) {
-                String[] split = line.split(",");
+                String[] column = line.split(",");
 
                 // [0]会社名, [1]代表者, [2]電話番号, [3]郵便番号, [4]都道府県コード, [5]住所, [6]メールアドレス
-                Company company = new Company(split[0], split[1], split[2], split[3], split[4], split[5], split[6]);
+                Company company = new Company(column[0], column[1], column[2], column[3], column[4], column[5],
+                        column[6]);
 
                 companies.add(company);
             }
             line = buf.readLine();
+
+            // ヘッダーを削除
+            companies.remove(0);
 
         } catch (IOException e) {
             System.out.println("CSVを正しく読み込めませんでした。");
