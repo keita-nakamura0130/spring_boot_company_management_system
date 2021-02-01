@@ -1,5 +1,11 @@
 package com.keita.nakamura.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
@@ -140,5 +147,68 @@ public class CompaniesController {
         redirectAttributes.addFlashAttribute("success", "会社を削除しました。");
 
         return "redirect:/companies/index";
+    }
+
+    /**
+     * CSVインポート画面
+     */
+    @GetMapping(value = "/companies/import")
+    public String csvImport(Model model) {
+
+        return "companies/import";
+    }
+
+    /**
+     * CSVインポート
+     */
+    @PostMapping(value = "/companies/import")
+    public String csvImportExecute(@RequestParam("csv") MultipartFile csv) {
+//        if (bidingResult.hasErrors()) {
+//            return "companies/import";
+//        }
+
+        List<Company> companies = this.getCompanyInstancesFromCsv(csv);
+
+        for (Company company : companies) {
+            System.out.println(company.getName());
+        }
+
+
+//        CompanyService.insert(company);
+
+//        redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
+
+        return "companies/import";
+    }
+
+    /**
+     * CSVから会社インスタンスを取得
+     *
+     * @param csv
+     * @return
+     */
+    private List<Company> getCompanyInstancesFromCsv(MultipartFile csv) {
+        List<Company> companies = new ArrayList<>();
+        String line = null;
+        try {
+            InputStream stream = csv.getInputStream();
+            Reader reader = new InputStreamReader(stream);
+            BufferedReader buf= new BufferedReader(reader);
+
+            while ((line = buf.readLine()) != null) {
+                String[] split = line.split(",");
+
+                // [0]会社名, [1]代表者, [2]電話番号, [3]郵便番号, [4]都道府県コード, [5]住所, [6]メールアドレス
+                Company company = new Company(split[0], split[1], split[2], split[3], split[4], split[5], split[6]);
+
+                companies.add(company);
+            }
+            line = buf.readLine();
+
+        } catch (IOException e) {
+            System.out.println("CSVを正しく読み込めませんでした。");
+            e.printStackTrace();
+        }
+        return companies;
     }
 }

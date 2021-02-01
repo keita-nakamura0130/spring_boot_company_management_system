@@ -82,4 +82,32 @@ public class Company {
      * 削除日時
      */
     private String deleted;
+
+    /**
+     * 引数なしコンストラクタ
+     */
+    public Company() {
+
+    }
+
+    /**
+     * コンストラクタ
+     *
+     * @param name
+     * @param representative
+     * @param phoneNumber
+     * @param postalCode
+     * @param prefectureCode
+     * @param address
+     * @param mailAddress
+     */
+    public Company(String name, String representative, String phoneNumber, String postalCode, String prefectureCode, String address, String mailAddress) {
+        this.name = name;
+        this.representative = representative;
+        this.phoneNumber = phoneNumber;
+        this.postalCode = postalCode;
+        this.prefectureCode = prefectureCode;
+        this.address = address;
+        this.mailAddress = mailAddress;
+    }
 }
