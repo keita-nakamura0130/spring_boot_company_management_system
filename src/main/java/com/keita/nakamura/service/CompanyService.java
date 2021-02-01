@@ -25,6 +25,10 @@ public class CompanyService {
         return CompanyMapper.findAll();
     }
 
+    public List<Company> findBySearch(String name) {
+        return CompanyMapper.findBySearch(name);
+    }
+
     /**
      * IDより会社を1件取得
      *

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
@@ -37,8 +38,13 @@ public class CompaniesController {
      * 会社一覧
      */
     @GetMapping(value = "/companies/index")
-    public String index(Model model) {
-        List<Company> companies = CompanyService.findAll();
+    public String index(Model model, @RequestParam(name = "name", required = false) String name) {
+        List<Company> companies = null;
+        if (name != null) {
+            companies = CompanyService.findBySearch(name);
+        } else {
+            companies = CompanyService.findAll();
+        }
         model.addAttribute("companies", companies);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
