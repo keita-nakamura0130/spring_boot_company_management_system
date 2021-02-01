@@ -41,6 +41,7 @@ public class EmployeesController {
         List<Employee> employees = EmployeeService.findAll(companyId);
         model.addAttribute("employees", employees);
 
+        model.addAttribute("companyId", companyId);
         model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "employees/index";
@@ -54,6 +55,7 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        model.addAttribute("companyId", companyId);
         model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "employees/show";
@@ -67,6 +69,8 @@ public class EmployeesController {
         Employee employee = new Employee();
         employee.setCompanyId(companyId);
         model.addAttribute("employee", employee);
+
+        model.addAttribute("companyId", companyId);
 
         return "employees/create";
     }
@@ -94,6 +98,8 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        model.addAttribute("companyId", companyId);
+
         return "employees/edit";
     }
 
@@ -120,6 +126,7 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        model.addAttribute("companyId", companyId);
         model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "employees/delete";

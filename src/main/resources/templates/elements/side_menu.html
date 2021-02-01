@@ -27,7 +27,17 @@
         </li>
         <li th:if="${user != null}" class="nav-item">
           <a href="/companies/import" class="nav-link">
-            <p>CSVインポート</p>
+            <p>会社データ CSVインポート</p>
+          </a>
+        </li>
+        <li th:if="${user != null && companyId != null}" class="nav-item">
+          <a th:href="@{'/employees/index/' + ${companyId}}" class="nav-link">
+            <p>社員一覧</p>
+          </a>
+        </li>
+        <li th:if="${user != null && companyId != null}" class="nav-item">
+          <a th:href="@{'/employees/create/' + ${companyId}}" class="nav-link">
+            <p>社員追加</p>
           </a>
         </li>
         <li th:if="${user != null}" class="nav-item">
