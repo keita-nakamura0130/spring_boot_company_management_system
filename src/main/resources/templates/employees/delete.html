@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>会社一覧 | 会社管理システム</title>
+  <title>社員削除 | 会社管理システム</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -25,6 +25,7 @@
   <div class="wrapper">
     <!-- Navbar -->
     <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light"></nav>
+    <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside th:include="/elements/side_menu :: side_menu" class="main-sidebar sidebar-dark-primary elevation-4"></aside>
@@ -36,18 +37,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>一覧</h1>
+              <h1>削除</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
       </section>
-
-      <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <p th:text="${success}" class="mb-0"></p>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
 
       <!-- Main content -->
       <section class="content">
@@ -56,62 +50,68 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">会社一覧</h3>
+                  <h3 class="card-title">社員削除</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example2" class="table table-bordered table-hover">
+                  <table class="table table-bordered table-hover">
                     <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>会社名</th>
-                        <th>代表者</th>
-                        <th>電話番号</th>
-                        <th>郵便番号</th>
-                        <th>都道府県</th>
-                        <th>住所</th>
-                        <th>メールアドレス</th>
-                        <th>社員</th>
-                        <th class="actions">機能</th>
+                      <tr scope="row">
+                        <th>項目</th>
+                        <th>値</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr th:each="company : ${companies}">
-                        <td th:text="${company.id}"></td>
-                        <td th:text="${company.name}"></td>
-                        <td th:text="${company.representative}"></td>
-                        <td th:text="${company.phoneNumber}"></td>
-                        <td th:text="${company.postalCode}"></td>
-                        <td th:text="${PREFECTURES[company.prefectureCode]}"></td>
-                        <td th:text="${company.address}"></td>
-                        <td th:text="${company.mailAddress}"></td>
-                        <td>
-                          <div class="btn-group">
-                            <button type="button" class="btn btn-default">
-                              <a th:href="@{'/employees/index/' + ${company.id}}" class="block">社員一覧へ</a>
-                            </button>
-                          </div>
-                        </td>
-                        <td class="actions">
-                          <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">
-                              <span class="caret">操作</span>
-                            </button>
-                            <ul class="dropdown-menu action-list">
-                              <li class="text-center">
-                                <a th:href="@{'/companies/show/' + ${company.id}}" class="block">詳細</a>
-                                <a th:href="@{'/companies/edit/' + ${company.id}}" class="block">編集</a>
-                                <a th:href="@{'/companies/delete/' + ${company.id}}" class="block">削除</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
+                      <tr>
+                        <th scope="row">ID</th>
+                        <td th:text="${employee.id}"></td>
+                      </tr>
+                      <tr>
+                        <td>社員名</td>
+                        <td th:text="${employee.name}"></td>
+                      </tr>
+                      <tr>
+                        <td>部署</td>
+                        <td th:text="${employee.department}"></td>
+                      </tr>
+                      <tr>
+                        <td>電話番号</td>
+                        <td th:text="${employee.phoneNumber}"></td>
+                      </tr>
+                      <tr>
+                        <td>郵便番号</td>
+                        <td th:text="${employee.postalCode}"></td>
+                      </tr>
+                      <tr>
+                        <td>都道府県</td>
+                        <td th:text="${PREFECTURES[employee.prefectureCode]}"></td>
+                      </tr>
+                      <tr>
+                        <td>住所</td>
+                        <td th:text="${employee.address}"></td>
+                      </tr>
+                      <tr>
+                        <td>メールアドレス</td>
+                        <td th:text="${employee.mailAddress}"></td>
+                      </tr>
+                      <tr>
+                        <td>作成日時</td>
+                        <td th:text="${employee.created}"></td>
+                      </tr>
+                      <tr>
+                        <td>更新日時</td>
+                        <td th:text="${employee.modified}"></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <!-- /.card-body -->
+                <form th:action="@{/employees/delete/{companyId}/{id} (companyId = ${employee.companyId}, id = ${employee.id})}" method="POST" th:object="${employee}">
+                  <input type="hidden" name="id" th:value=${employee.id}>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">削除</button>
+                  </div>
+                </form>
               </div>
               <!-- /.card -->
             </div>

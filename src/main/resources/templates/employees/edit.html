@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>社員編集 | 会社管理システム</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/dist/css/adminlte.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:include="/elements/side_menu :: side_menu" class="main-sidebar sidebar-dark-primary elevation-4"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>編集</h1>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- jquery validation -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">社員編集</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form th:action="@{/employees/edit/{companyId}/{id} (companyId = ${employee.companyId} , id = ${employee.id})}" method="POST" th:object="${employee}">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="name">社員名</label>
+                      <input type="text" name="name" th:value=${employee.name} id="name" class="form-control">
+                      <div th:if="${#fields.hasErrors('name')}" th:errors="${employee.name}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="department">部署</label>
+                      <input type="text" name="department" th:value="${employee.department}" id="department"
+                        class="form-control">
+                      <div th:if="${#fields.hasErrors('department')}" th:errors="${employee.department}"
+                        class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="phoneNumber">電話番号</label>
+                      <input type="text" name="phoneNumber" th:value="${employee.phoneNumber}" id="phoneNumber"
+                        class="form-control">
+                      <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${employee.phoneNumber}"
+                        class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="postalCode">郵便番号</label>
+                      <input type="text" name="postalCode" th:value="${employee.postalCode}" id="postalCode"
+                        class="form-control">
+                      <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${employee.postalCode}"
+                        class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="prefectureCode">都道府県</label>
+                      <select name="prefectureCode" id="prefectureCode" class="form-control">
+                        <option value="">選択してください</option>
+                        <option value="1" th:selected="${employee.prefectureCode == '1'}">北海道</option>
+                        <option value="2" th:selected="${employee.prefectureCode == '2'}">青森県</option>
+                        <option value="3" th:selected="${employee.prefectureCode == '3'}">岩手県</option>
+                        <option value="4" th:selected="${employee.prefectureCode == '4'}">宮城県</option>
+                        <option value="5" th:selected="${employee.prefectureCode == '5'}">秋田県</option>
+                        <option value="6" th:selected="${employee.prefectureCode == '6'}">山形県</option>
+                        <option value="7" th:selected="${employee.prefectureCode == '7'}">福島県</option>
+                        <option value="8" th:selected="${employee.prefectureCode == '8'}">茨城県</option>
+                        <option value="9" th:selected="${employee.prefectureCode == '9'}">栃木県</option>
+                        <option value="10" th:selected="${employee.prefectureCode == '10'}">群馬県</option>
+                        <option value="11" th:selected="${employee.prefectureCode == '11'}">埼玉県</option>
+                        <option value="12" th:selected="${employee.prefectureCode == '12'}">千葉県</option>
+                        <option value="13" th:selected="${employee.prefectureCode == '13'}">東京都</option>
+                        <option value="14" th:selected="${employee.prefectureCode == '14'}">神奈川県</option>
+                        <option value="15" th:selected="${employee.prefectureCode == '15'}">新潟県</option>
+                        <option value="16" th:selected="${employee.prefectureCode == '16'}">富山県</option>
+                        <option value="17" th:selected="${employee.prefectureCode == '17'}">石川県</option>
+                        <option value="18" th:selected="${employee.prefectureCode == '18'}">福井県</option>
+                        <option value="19" th:selected="${employee.prefectureCode == '19'}">山梨県</option>
+                        <option value="20" th:selected="${employee.prefectureCode == '20'}">長野県</option>
+                        <option value="21" th:selected="${employee.prefectureCode == '21'}">岐阜県</option>
+                        <option value="22" th:selected="${employee.prefectureCode == '22'}">静岡県</option>
+                        <option value="23" th:selected="${employee.prefectureCode == '23'}">愛知県</option>
+                        <option value="24" th:selected="${employee.prefectureCode == '24'}">三重県</option>
+                        <option value="25" th:selected="${employee.prefectureCode == '25'}">滋賀県</option>
+                        <option value="26" th:selected="${employee.prefectureCode == '26'}">京都府</option>
+                        <option value="27" th:selected="${employee.prefectureCode == '27'}">大阪府</option>
+                        <option value="28" th:selected="${employee.prefectureCode == '28'}">兵庫県</option>
+                        <option value="29" th:selected="${employee.prefectureCode == '29'}">奈良県</option>
+                        <option value="30" th:selected="${employee.prefectureCode == '30'}">和歌山県</option>
+                        <option value="31" th:selected="${employee.prefectureCode == '31'}">鳥取県</option>
+                        <option value="32" th:selected="${employee.prefectureCode == '32'}">島根県</option>
+                        <option value="33" th:selected="${employee.prefectureCode == '33'}">岡山県</option>
+                        <option value="34" th:selected="${employee.prefectureCode == '34'}">広島県</option>
+                        <option value="35" th:selected="${employee.prefectureCode == '35'}">山口県</option>
+                        <option value="36" th:selected="${employee.prefectureCode == '36'}">徳島県</option>
+                        <option value="37" th:selected="${employee.prefectureCode == '37'}">香川県</option>
+                        <option value="38" th:selected="${employee.prefectureCode == '38'}">愛媛県</option>
+                        <option value="39" th:selected="${employee.prefectureCode == '39'}">高知県</option>
+                        <option value="40" th:selected="${employee.prefectureCode == '40'}">福岡県</option>
+                        <option value="41" th:selected="${employee.prefectureCode == '41'}">佐賀県</option>
+                        <option value="42" th:selected="${employee.prefectureCode == '42'}">長崎県</option>
+                        <option value="43" th:selected="${employee.prefectureCode == '43'}">熊本県</option>
+                        <option value="44" th:selected="${employee.prefectureCode == '44'}">大分県</option>
+                        <option value="45" th:selected="${employee.prefectureCode == '45'}">宮崎県</option>
+                        <option value="46" th:selected="${employee.prefectureCode == '46'}">鹿児島県</option>
+                        <option value="47" th:selected="${employee.prefectureCode == '47'}">沖縄県</option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('prefectureCode')}" th:errors="${employee.prefectureCode}"
+                        class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="address">住所(都道府県以降)</label>
+                      <input type="text" name="address" th:value="${employee.address}" id="address"
+                        class="form-control">
+                      <div th:if="${#fields.hasErrors('address')}" th:errors="${employee.address}" class="has-error">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="mailAddress">メールアドレス</label>
+                      <input type="email" name="mailAddress" th:value="${employee.mailAddress}" id="mailAddress"
+                        class="form-control">
+                      <div th:if="${#fields.hasErrors('mailAddress')}" th:errors="${employee.mailAddress}"
+                        class="has-error"></div>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">編集</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer th:include="/elements/footer :: footer" class="main-footer"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./../wrapper -->
+
+  <!-- jQuery -->
+  <script th:src="@{/assets/AdminLTE/plugins/jquery/jquery.min.js}"></script>
+  <!-- Bootstrap 4 -->
+  <script th:src="@{/assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- jquery-validation -->
+  <script th:src="@{/assets/AdminLTE/plugins/jquery-validation/jquery.validate.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/jquery-validation/additional-methods.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/assets/AdminLTE/dist/js/adminlte.min.js}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script th:src="@{/assets/AdminLTE/dist/js/demo.js}"></script>
+  <!-- Page specific script -->
+  <script>
+    $(function () {
+      $.validator.setDefaults({
+        submitHandler: function () {
+          alert("Form successful submitted!");
+        }
+      });
+      $('#quickForm').validate({
+        rules: {
+          email: {
+            required: true,
+            email: true,
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          terms: {
+            required: true
+          },
+        },
+        messages: {
+          email: {
+            required: "Please enter a email address",
+            email: "Please enter a vaild email address"
+          },
+          password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+          },
+          terms: "Please accept our terms"
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
