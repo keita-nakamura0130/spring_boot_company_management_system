@@ -10,23 +10,25 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
+        <li th:if="${user != null}" class="nav-item">
           <a href="/companies/index" class="nav-link">
-            <i class="nav-icon"></i>
-            <p>
-              会社一覧
-              <i class="right"></i>
-            </p>
+            <p>会社一覧</p>
           </a>
         </li>
-        <li class="nav-item">
+        <li th:if="${user != null}" class="nav-item">
           <a href="/companies/create" class="nav-link">
-            <i class="nav-icon"></i>
-            <p>
-              会社追加
-              <i class="right"></i>
-            </p>
+            <p>会社追加</p>
           </a>
+        </li>
+        <li th:if="${user == null}" class="nav-item">
+          <a href="/login" class="nav-link">
+            <p>ログイン</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <form th:action="@{/logout}" method="POST" name="logout" class="nav-link">
+            <a href="javascript:logout.submit()" class="logout">ログアウト</a>
+          </form>
         </li>
       </ul>
     </nav>
