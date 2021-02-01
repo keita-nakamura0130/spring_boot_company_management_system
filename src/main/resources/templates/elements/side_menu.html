@@ -42,7 +42,7 @@
         </li>
         <li th:if="${user != null}" class="nav-item">
           <form th:action="@{/logout}" method="POST" name="logout" class="nav-link">
-            <a href="javascript:logout.submit()" class="logout">ログアウト</a>
+            <p style="display: block;"><a href="javascript:logout.submit()" class="logout">ログアウト</a></p>
           </form>
         </li>
       </ul>
