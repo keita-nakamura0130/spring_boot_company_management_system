@@ -166,15 +166,13 @@ public class CompaniesController {
 //        if (bidingResult.hasErrors()) {
 //            return "companies/import";
 //        }
-        
-        List<Company> lines = this.fileContents(csv);
-        
-        for (Company line : lines) {
-            System.out.println(line.getName());
-//            Company company = new Company();
-//            company.setName(line.concat));
+
+        List<Company> companies = this.getCompanyInstancesFromCsv(csv);
+
+        for (Company company : companies) {
+            System.out.println(company.getName());
         }
-        
+
 
 //        CompanyService.insert(company);
 
@@ -182,41 +180,33 @@ public class CompaniesController {
 
         return "companies/import";
     }
-    
+
     /**
-     * 
+     * CSVから会社インスタンスを取得
      *
-     * @param uploadFile
+     * @param csv
      * @return
      */
-    private List<Company> fileContents(MultipartFile uploadFile) {
-        List<String> lines = new ArrayList<>();
+    private List<Company> getCompanyInstancesFromCsv(MultipartFile csv) {
         List<Company> companies = new ArrayList<>();
         String line = null;
         try {
-            InputStream stream = uploadFile.getInputStream();           
+            InputStream stream = csv.getInputStream();
             Reader reader = new InputStreamReader(stream);
             BufferedReader buf= new BufferedReader(reader);
 
-            while((line = buf.readLine()) != null) {
-                String[] split = line.split(",");   
-                
-                Company company = new Company();
-                company.setName(split[0]);
-                company.setRepresentative(split[1]);
-                company.setPhoneNumber(split[2]);
-                company.setPostalCode(split[3]);
-                company.setPrefectureCode(split[4]);
-                company.setAddress(split[5]);
-                company.setMailAddress(split[6]);
-                
+            while ((line = buf.readLine()) != null) {
+                String[] split = line.split(",");
+
+                // [0]会社名, [1]代表者, [2]電話番号, [3]郵便番号, [4]都道府県コード, [5]住所, [6]メールアドレス
+                Company company = new Company(split[0], split[1], split[2], split[3], split[4], split[5], split[6]);
+
                 companies.add(company);
             }
             line = buf.readLine();
 
         } catch (IOException e) {
-            line = "Can't read contents.";
-            lines.add(line);
+            System.out.println("CSVを正しく読み込めませんでした。");
             e.printStackTrace();
         }
         return companies;
