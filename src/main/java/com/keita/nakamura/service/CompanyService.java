@@ -25,8 +25,16 @@ public class CompanyService {
         return CompanyMapper.findAll();
     }
 
-    public List<Company> findBySearch(String name) {
-        return CompanyMapper.findBySearch(name);
+    /**
+     * 検索より会社一覧を取得
+     *
+     * @param name
+     * @param representative
+     * @param prefectureCode
+     * @return
+     */
+    public List<Company> findBySearch(String name, String representative, String prefectureCode) {
+        return CompanyMapper.findBySearch(name, representative, prefectureCode);
     }
 
     /**

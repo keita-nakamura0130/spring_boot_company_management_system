@@ -45,10 +45,11 @@ public class CompaniesController {
      * 会社一覧
      */
     @GetMapping(value = "/companies/index")
-    public String index(Model model, @RequestParam(name = "name", required = false) String name) {
+    public String index(Model model, @RequestParam(name = "name", required = false) String name, @RequestParam(name = "representative", required = false) String representative, @RequestParam(name = "prefectureCode", required = false) String prefectureCode) {
         List<Company> companies = null;
-        if (name != null) {
-            companies = CompanyService.findBySearch(name);
+        if (name != null || representative != null || prefectureCode != null) {
+            companies = CompanyService.findBySearch(name, representative, prefectureCode);
+            model.addAttribute("prefectureCode", prefectureCode);
         } else {
             companies = CompanyService.findAll();
         }

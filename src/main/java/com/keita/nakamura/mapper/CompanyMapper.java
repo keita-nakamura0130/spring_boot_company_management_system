@@ -17,9 +17,14 @@ public interface CompanyMapper {
     List<Company> findAll();
 
     /**
-     * 会社名検索より会社一覧を取得
+     * 検索より会社一覧を取得
+     *
+     * @param name
+     * @param representative
+     * @param prefectureCode
+     * @return
      */
-    List<Company> findBySearch(String name);
+    List<Company> findBySearch(String name, String representative, String prefectureCode);
 
     /**
      * IDより会社を1件取得
