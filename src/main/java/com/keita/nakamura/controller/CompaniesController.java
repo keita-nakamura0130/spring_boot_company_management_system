@@ -214,4 +214,12 @@ public class CompaniesController {
         }
         return companies;
     }
+
+    /**
+     * ドキュメントルートにアクセス
+     */
+    @GetMapping(value = "/")
+    public String documentRoot() {
+        return "redirect:/companies/index";
+    }
 }
