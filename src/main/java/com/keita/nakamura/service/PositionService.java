@@ -26,6 +26,16 @@ public class PositionService {
     }
 
     /**
+     * IDより部署を1件取得
+     *
+     * @param id
+     * @return
+     */
+    public Position findById(int id) {
+        return PositionMapper.findById(id);
+    }
+
+    /**
      * 役職を追加
      *
      * @param Position

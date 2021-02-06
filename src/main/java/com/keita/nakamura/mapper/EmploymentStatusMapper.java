@@ -17,6 +17,13 @@ public interface EmploymentStatusMapper {
     List<EmploymentStatus> findAll();
 
     /**
+     * IDより雇用形態を1件取得
+     *
+     * @param id
+     */
+    EmploymentStatus findById(int id);
+
+    /**
      * 雇用形態を追加
      *
      * @param EmploymentStatus

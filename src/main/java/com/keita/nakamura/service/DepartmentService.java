@@ -26,6 +26,16 @@ public class DepartmentService {
     }
 
     /**
+     * IDより部署を1件取得
+     *
+     * @param id
+     * @return
+     */
+    public Department findById(int id) {
+        return DepartmentMapper.findById(id);
+    }
+
+    /**
      * 部署を追加
      *
      * @param Department

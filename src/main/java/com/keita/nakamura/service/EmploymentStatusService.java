@@ -26,6 +26,16 @@ public class EmploymentStatusService {
     }
 
     /**
+     * IDより雇用形態を1件取得
+     *
+     * @param id
+     * @return
+     */
+    public EmploymentStatus findById(int id) {
+        return EmploymentStatusMapper.findById(id);
+    }
+
+    /**
      * 雇用形態を追加
      *
      * @param EmploymentStatus

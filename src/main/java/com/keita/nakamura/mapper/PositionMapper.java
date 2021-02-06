@@ -17,6 +17,13 @@ public interface PositionMapper {
     List<Position> findAll();
 
     /**
+     * IDより役職を1件取得
+     *
+     * @param id
+     */
+    Position findById(int id);
+
+    /**
      * 役職を追加
      *
      * @param Positon

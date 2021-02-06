@@ -17,6 +17,13 @@ public interface DepartmentMapper {
     List<Department> findAll();
 
     /**
+     * IDより部署を1件取得
+     *
+     * @param id
+     */
+    Department findById(int id);
+
+    /**
      * 部署を追加
      *
      * @param Department
