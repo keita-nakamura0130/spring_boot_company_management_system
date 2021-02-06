@@ -1,4 +1,18 @@
-
-public class EmploymentStatusMapper {
-
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keita.nakamura.mapper.EmploymentStatusMapper">
+    <select id="findAll" resultType="com.keita.nakamura.entity.EmploymentStatus">
+        SELECT * FROM employment_status WHERE deleted is NULL;
+    </select>
+    <insert id="insert">
+        INSERT INTO employment_status (name, created, modified) VALUES (#{name}, NOW(), NOW());
+    </insert>
+    <update id="update">
+        UPDATE employment_status SET name = #{name}, modified = NOW() WHERE id = #{id};
+    </update>
+    <delete id="delete">
+        UPDATE employment_status SET deleted = NOW() WHERE id = #{id};
+    </delete>
+</mapper>

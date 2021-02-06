@@ -1,4 +1,18 @@
-
-public class PositionMapper {
-
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keita.nakamura.mapper.PositonMapper">
+    <select id="findAll" resultType="com.keita.nakamura.entity.Positon">
+        SELECT * FROM positions WHERE deleted is NULL;
+    </select>
+    <insert id="insert">
+        INSERT INTO positions (name, created, modified) VALUES (#{name}, NOW(), NOW());
+    </insert>
+    <update id="update">
+        UPDATE positions SET name = #{name}, modified = NOW() WHERE id = #{id};
+    </update>
+    <delete id="delete">
+        UPDATE positions SET deleted = NOW() WHERE id = #{id};
+    </delete>
+</mapper>
