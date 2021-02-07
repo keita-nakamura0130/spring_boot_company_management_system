@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.keita.nakamura.entity.Department;
 import com.keita.nakamura.entity.Employee;
+import com.keita.nakamura.entity.Position;
+import com.keita.nakamura.service.DepartmentService;
 import com.keita.nakamura.service.EmployeeService;
+import com.keita.nakamura.service.PositionService;
 
 /**
  * Employeesコントローラー
@@ -24,6 +28,12 @@ public class EmployeesController {
 
     @Autowired
     EmployeeService EmployeeService;
+    
+    @Autowired
+    PositionService positionService;
+
+    @Autowired
+    DepartmentService departmentService;
 
     /**
      * 都道府県リスト(都道府県コードを都道府県に変換するために使用)
@@ -69,7 +79,13 @@ public class EmployeesController {
         Employee employee = new Employee();
         employee.setCompanyId(companyId);
         model.addAttribute("employee", employee);
+        
+        List<Position> positions = positionService.findAll();
+        model.addAttribute("positions", positions);
 
+        List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
+        
         model.addAttribute("companyId", companyId);
 
         return "employees/create";

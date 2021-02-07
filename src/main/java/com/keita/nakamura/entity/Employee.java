@@ -24,6 +24,26 @@ public class Employee {
     private int companyId;
 
     /**
+     * 役職ID
+     */
+    private int position_id;
+
+    /**
+     * 部署ID
+     */
+    private int department_id;
+
+    /**
+     * 雇用形態ID
+     */
+    private int employment_status_id;
+
+    /**
+     * 都道府県ID
+     */
+    private int prefecture_id;
+
+    /**
      * 社員名
      */
     @NotBlank(message = "必須入力です")
@@ -31,11 +51,19 @@ public class Employee {
     private String name;
 
     /**
-     * 部署
+     * 生年月日
      */
-    @NotBlank(message = "必須入力です")
-    @Size(max = 20, message="20文字以内で入力してください")
-    private String department;
+    private String birthday;
+
+    /**
+     * 性別
+     */
+    private String sex;
+
+    /**
+     * 血液型
+     */
+    private String blood;
 
     /**
      * 電話番号
@@ -52,13 +80,6 @@ public class Employee {
     private String postalCode;
 
     /**
-     * 都道府県コード
-     */
-    @NotBlank(message = "必須入力です")
-    @Size(max = 2, message="選択してください")
-    private String prefectureCode;
-
-    /**
      * 住所
      */
     @NotBlank(message = "必須入力です")
@@ -72,6 +93,16 @@ public class Employee {
     @Size(max = 100, message="100文字以内で入力してください")
     @Email(message = "メール形式で入力してください")
     private String mailAddress;
+
+    /**
+     * 入社日
+     */
+    private String join_date;
+
+    /**
+     * 退職日
+     */
+    private String retirement_date;
 
     /**
      * 作成日時
