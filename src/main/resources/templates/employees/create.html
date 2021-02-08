@@ -72,7 +72,7 @@
                         <option value="" selected>選択してください</option>
                         <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
                       </select>
-                      <div th:if="${#fields.hasErrors('position_id')}" th:errors="${employee.position_id}" class="has-error"></div>
+                      <div th:if="${#fields.hasErrors('positionId')}" th:errors="${employee.positionId}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
@@ -81,7 +81,7 @@
                         <option value="" selected>選択してください</option>
                         <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
                       </select>
-                      <div th:if="${#fields.hasErrors('department_id')}" th:errors="${employee.department_id}" class="has-error"></div>
+                      <div th:if="${#fields.hasErrors('departmentId')}" th:errors="${employee.departmentId}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
@@ -134,8 +134,8 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="prefectureCode">都道府県</label>
-                      <select name="prefectureCode" id="prefectureCode" class="form-control">
+                      <label for="prefectureId">都道府県</label>
+                      <select name="prefectureId" id="prefectureId" class="form-control">
                         <option value="" selected>選択してください</option>
                         <option value="1">北海道</option>
                         <option value="2">青森県</option>
@@ -185,8 +185,7 @@
                         <option value="46">鹿児島県</option>
                         <option value="47">沖縄県</option>
                       </select>
-                      <div th:if="${#fields.hasErrors('prefecture_id')}" th:errors="${employee.prefecture_id}"
-                        class="has-error"></div>
+                      <div th:if="${#fields.hasErrors('prefectureId')}" th:errors="${employee.prefectureId}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
@@ -206,12 +205,19 @@
                     </div>
 
                     <div class="form-group">
+                      <label for="employmentStatus">雇用形態</label>
+                      <select name="employmentStatus" id="employmentStatus" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option th:each="status : ${employmentStatus}" th:value="${status.id}" th:text="${status.name}">
+                        </option>
+                      </select>
+                      <!-- <div th:if="${#fields.hasErrors('employee.employmentStatusId')}" th:errors="${employee.employmentStatusId}" class="has-error"></div> -->
+                    </div>
+
+                    <div class="form-group">
                       <label for="joinDate">入社日</label>
-                      <input type="text" name="joinDate" th:value=${employee.joinDate} id="joinDate"
-                        class="form-control">
-                      <div th:if="${#fields.hasErrors('joinDate')}" th:errors="${employee.joinDate}"
-                        class="has-error">
-                      </div>
+                      <input type="text" name="joinDate" th:value=${employee.joinDate} id="joinDate" class="form-control">
+                      <div th:if="${#fields.hasErrors('joinDate')}" th:errors="${employee.joinDate}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">

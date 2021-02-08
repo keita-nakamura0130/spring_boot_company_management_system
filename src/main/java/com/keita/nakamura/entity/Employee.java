@@ -26,22 +26,22 @@ public class Employee {
     /**
      * 役職ID
      */
-    private int position_id;
+    private int positionId;
 
     /**
      * 部署ID
      */
-    private int department_id;
+    private int departmentId;
 
     /**
      * 雇用形態ID
      */
-    private int employment_status_id;
+    private int employmentStatusId;
 
     /**
      * 都道府県ID
      */
-    private int prefecture_id;
+    private int prefectureId;
 
     /**
      * 社員名
