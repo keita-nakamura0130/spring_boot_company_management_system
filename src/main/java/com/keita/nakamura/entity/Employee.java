@@ -97,12 +97,12 @@ public class Employee {
     /**
      * 入社日
      */
-    private String join_date;
+    private String joinDate;
 
     /**
      * 退職日
      */
-    private String retirement_date;
+    private String retirementDate;
 
     /**
      * 作成日時

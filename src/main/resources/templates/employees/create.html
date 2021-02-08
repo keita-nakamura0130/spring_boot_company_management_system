@@ -11,10 +11,10 @@
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
-  <!-- daterange picker -->
-  <!-- <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/daterangepicker/daterangepicker.css}"> -->
   <!-- Theme style -->
   <link rel="stylesheet" th:href="@{/assets/AdminLTE/dist/css/adminlte.min.css}">
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
 
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -206,19 +206,19 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="join_date">入社日</label>
-                      <input type="text" name="birthday" th:value=${employee.join_date} id="join_date"
+                      <label for="joinDate">入社日</label>
+                      <input type="text" name="joinDate" th:value=${employee.joinDate} id="joinDate"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('join_date')}" th:errors="${employee.join_date}"
+                      <div th:if="${#fields.hasErrors('joinDate')}" th:errors="${employee.joinDate}"
                         class="has-error">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="retirement_date">退職日</label>
-                      <input type="text" name="birthday" th:value=${employee.retirement_date} id="retirement_date"
+                      <label for="retirementDate">退職日</label>
+                      <input type="text" name="retirementDate" th:value=${employee.retirementDate} id="retirementDate"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('retirement_date')}" th:errors="${employee.retirement_date}"
+                      <div th:if="${#fields.hasErrors('retirementDate')}" th:errors="${employee.retirementDate}"
                         class="has-error">
                       </div>
                     </div>
@@ -258,8 +258,6 @@
   <!-- jquery-validation -->
   <script th:src="@{/assets/AdminLTE/plugins/jquery-validation/jquery.validate.min.js}"></script>
   <script th:src="@{/assets/AdminLTE/plugins/jquery-validation/additional-methods.min.js}"></script>
-  <!-- date-range-picker -->
-  <!-- <script th:src="@{/assets/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script> -->
   <!-- AdminLTE App -->
   <script th:src="@{/assets/AdminLTE/dist/js/adminlte.min.js}"></script>
   <!-- AdminLTE for demo purposes -->
@@ -311,6 +309,10 @@
       });
     });
   </script>
+  <!-- Datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+  <script th:src="@{/js/main.js}"></script>
   <script src="https://ajaxzip3.github.io/ajaxzip3.js"></script>
 </body>
 
