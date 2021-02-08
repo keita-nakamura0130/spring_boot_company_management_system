@@ -17,10 +17,12 @@ import com.keita.nakamura.entity.Department;
 import com.keita.nakamura.entity.Employee;
 import com.keita.nakamura.entity.EmploymentStatus;
 import com.keita.nakamura.entity.Position;
+import com.keita.nakamura.entity.Prefecture;
 import com.keita.nakamura.service.DepartmentService;
 import com.keita.nakamura.service.EmployeeService;
 import com.keita.nakamura.service.EmploymentStatusService;
 import com.keita.nakamura.service.PositionService;
+import com.keita.nakamura.service.PrefectureService;
 
 /**
  * Employeesコントローラー
@@ -39,6 +41,9 @@ public class EmployeesController {
 
     @Autowired
     EmploymentStatusService employmentStatusService;
+
+    @Autowired
+    PrefectureService prefectureService;
 
     /**
      * 都道府県リスト(都道府県コードを都道府県に変換するために使用)
@@ -93,6 +98,9 @@ public class EmployeesController {
 
         List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
         model.addAttribute("employmentStatus", employmentStatus);
+
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
 
         model.addAttribute("companyId", companyId);
 
