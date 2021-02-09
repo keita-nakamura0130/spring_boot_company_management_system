@@ -111,8 +111,20 @@ public class EmployeesController {
      * 社員追加
      */
     @PostMapping(value = "/employees/create/{companyId}")
-    public String store(@ModelAttribute @Validated Employee employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId) {
+    public String store(@ModelAttribute @Validated Employee employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Position> positions = positionService.findAll();
+            model.addAttribute("positions", positions);
+
+            List<Department> departments = departmentService.findAll();
+            model.addAttribute("departments", departments);
+
+            List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+            model.addAttribute("employmentStatus", employmentStatus);
+
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
+
             return "employees/create";
         }
         EmployeeService.insert(employee);

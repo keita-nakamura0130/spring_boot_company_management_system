@@ -67,8 +67,8 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="position">役職</label>
-                      <select name="position" id="position" class="form-control">
+                      <label for="positionId">役職</label>
+                      <select name="positionId" id="positionId" class="form-control">
                         <option value="" selected>選択してください</option>
                         <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
                       </select>
@@ -76,8 +76,8 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="department">部署</label>
-                      <select name="department" id="department" class="form-control">
+                      <label for="departmentId">部署</label>
+                      <select name="departmentId" id="departmentId" class="form-control">
                         <option value="" selected>選択してください</option>
                         <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
                       </select>
@@ -159,8 +159,8 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="employmentStatus">雇用形態</label>
-                      <select name="employmentStatus" id="employmentStatus" class="form-control">
+                      <label for="employmentStatusId">雇用形態</label>
+                      <select name="employmentStatusId" id="employmentStatusId" class="form-control">
                         <option value="" selected>選択してください</option>
                         <option th:each="status : ${employmentStatus}" th:value="${status.id}" th:text="${status.name}">
                         </option>
