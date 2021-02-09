@@ -1,7 +1,10 @@
 package com.keita.nakamura.entity;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -16,32 +19,38 @@ public class Employee {
     /**
      * ID
      */
-    private int id;
+    private Integer id;
 
     /**
      * 会社ID
      */
-    private int companyId;
+    @NotNull(message ="必須入力です")
+    private Integer companyId;
 
     /**
      * 役職ID
      */
-    private int positionId;
+    @NotNull(message ="必須入力です")
+    private Integer positionId;
 
     /**
      * 部署ID
      */
-    private int departmentId;
+    @NotNull(message ="必須入力です")
+    private Integer departmentId;
 
     /**
      * 雇用形態ID
      */
-    private int employmentStatusId;
+    @NotNull(message ="必須入力です")
+    private Integer employmentStatusId;
 
     /**
      * 都道府県ID
      */
-    private int prefectureId;
+    @NotNull(message ="必須入力です")
+    @Max(47)
+    private Integer prefectureId;
 
     /**
      * 社員名
@@ -53,16 +62,22 @@ public class Employee {
     /**
      * 生年月日
      */
+    @NotBlank(message = "必須入力です")
+    @Pattern(regexp="^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy/MM/dd)の形式で入力してください")
     private String birthday;
 
     /**
      * 性別
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 1, message="正しく選択してください")
     private String sex;
 
     /**
      * 血液型
      */
+    @NotBlank(message = "必須入力です")
+    @Size(max = 1, message="正しく選択してください")
     private String blood;
 
     /**
@@ -70,6 +85,7 @@ public class Employee {
      */
     @NotBlank(message = "必須入力です")
     @Size(max = 11, message="11文字以内で入力してください")
+    @Pattern(regexp="^0\\d{9,10}$", message="電話番号形式(ハイフン無し)で入力してください")
     private String phoneNumber;
 
     /**
@@ -77,6 +93,7 @@ public class Employee {
      */
     @NotBlank(message = "必須入力です")
     @Size(max = 7, message="7文字以内で入力してください")
+    @Pattern(regexp="^[0-9]{7}$", message="郵便番号形式(ハイフン無し)で入力してください")
     private String postalCode;
 
     /**
@@ -97,11 +114,15 @@ public class Employee {
     /**
      * 入社日
      */
+    @NotBlank(message = "必須入力です")
+    @Pattern(regexp="^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy/MM/dd)の形式で入力してください")
     private String joinDate;
 
     /**
      * 退職日
      */
+    @NotBlank(message = "必須入力です")
+    @Pattern(regexp="^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy/MM/dd)の形式で入力してください")
     private String retirementDate;
 
     /**

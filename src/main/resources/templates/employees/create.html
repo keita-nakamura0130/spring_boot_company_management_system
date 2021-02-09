@@ -165,7 +165,7 @@
                         <option th:each="status : ${employmentStatus}" th:value="${status.id}" th:text="${status.name}">
                         </option>
                       </select>
-                      <!-- <div th:if="${#fields.hasErrors('employee.employmentStatusId')}" th:errors="${employee.employmentStatusId}" class="has-error"></div> -->
+                      <div th:if="${#fields.hasErrors('employmentStatusId')}" th:errors="${employee.employmentStatusId}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
