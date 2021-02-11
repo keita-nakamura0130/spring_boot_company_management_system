@@ -75,8 +75,19 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        Position position = positionService.findById(employee.getPositionId());
+        model.addAttribute("position", position);
+
+        Department department = departmentService.findById(employee.getDepartmentId());
+        model.addAttribute("department", department);
+
+        EmploymentStatus employmentStatus = employmentStatusService.findById(employee.getEmploymentStatusId());
+        model.addAttribute("employmentStatus", employmentStatus);
+
+        Prefecture prefecture = prefectureService.findById(employee.getPrefectureId());
+        model.addAttribute("prefecture", prefecture);
+
         model.addAttribute("companyId", companyId);
-        model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "employees/show";
     }
@@ -142,6 +153,18 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        List<Position> positions = positionService.findAll();
+        model.addAttribute("positions", positions);
+
+        List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
+
+        List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+        model.addAttribute("employmentStatus", employmentStatus);
+
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
+
         model.addAttribute("companyId", companyId);
 
         return "employees/edit";
@@ -151,8 +174,19 @@ public class EmployeesController {
      * 社員編集
      */
     @PostMapping(value = "/employees/edit/{companyId}/{id}")
-    public String update(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, @PathVariable int id) {
+    public String update(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, @PathVariable int id, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Position> positions = positionService.findAll();
+            model.addAttribute("positions", positions);
+
+            List<Department> departments = departmentService.findAll();
+            model.addAttribute("departments", departments);
+
+            List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+            model.addAttribute("employmentStatus", employmentStatus);
+
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
             return "employees/edit";
         }
         EmployeeService.update(Employee);

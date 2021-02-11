@@ -15,7 +15,7 @@
     </insert>
     <update id="update">
         UPDATE employees
-        SET name = #{name}, department = #{department}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        SET position_id = #{positionId}, department_id = #{departmentId}, employment_status_id = #{employmentStatusId}, prefecture_id = #{prefectureId}, name = #{name}, birthday = #{birthday}, sex = #{sex}, blood = #{blood}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, address = #{address}, mail_address = #{mailAddress}, join_date = #{joinDate}, retirement_date = #{retirementDate}, modified = NOW()
         WHERE id = #{id};
     </update>
     <delete id="delete">

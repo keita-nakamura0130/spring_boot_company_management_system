@@ -63,7 +63,7 @@ public class Employee {
      * 生年月日
      */
     @NotBlank(message = "必須入力です")
-    @Pattern(regexp="^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy/MM/dd)の形式で入力してください")
+    @Pattern(regexp="^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy-MM-dd)の形式で入力してください")
     private String birthday;
 
     /**
@@ -115,14 +115,14 @@ public class Employee {
      * 入社日
      */
     @NotBlank(message = "必須入力です")
-    @Pattern(regexp="^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy/MM/dd)の形式で入力してください")
+    @Pattern(regexp="^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy-MM-dd)の形式で入力してください")
     private String joinDate;
 
     /**
      * 退職日
      */
     @NotBlank(message = "必須入力です")
-    @Pattern(regexp="^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy/MM/dd)の形式で入力してください")
+    @Pattern(regexp="^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", message="正しい年月日(yyyy-MM-dd)の形式で入力してください")
     private String retirementDate;
 
     /**
