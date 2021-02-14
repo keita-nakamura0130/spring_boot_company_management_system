@@ -11,23 +11,58 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li th:if="${user == null}" class="nav-item">
-          <a href="/login" class="nav-link">
+          <a th:href="@{/login}" class="nav-link">
             <p>ログイン</p>
           </a>
         </li>
         <li th:if="${user != null}" class="nav-item">
-          <a href="/companies/index" class="nav-link">
+          <a th:href="@{/companies/index}" class="nav-link">
             <p>会社一覧</p>
           </a>
         </li>
         <li th:if="${user != null}" class="nav-item">
-          <a href="/companies/create" class="nav-link">
+          <a th:href="@{/companies/create}" class="nav-link">
             <p>会社追加</p>
           </a>
         </li>
         <li th:if="${user != null}" class="nav-item">
-          <a href="/companies/import" class="nav-link">
+          <a th:href="@{/companies/import}" class="nav-link">
             <p>会社データ CSVインポート</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/companies/export}" class="nav-link">
+            <p>会社データ CSVエクスポート</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/positions/index}" class="nav-link">
+            <p>役職一覧</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/positions/create}" class="nav-link">
+            <p>役職追加</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/departments/index}" class="nav-link">
+            <p>部署一覧</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/departments/create}" class="nav-link">
+            <p>部署追加</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/employment-status/index}" class="nav-link">
+            <p>雇用形態一覧</p>
+          </a>
+        </li>
+        <li th:if="${user != null}" class="nav-item">
+          <a th:href="@{/employment-status/create}" class="nav-link">
+            <p>雇用形態追加</p>
           </a>
         </li>
         <li th:if="${user != null && companyId != null}" class="nav-item">

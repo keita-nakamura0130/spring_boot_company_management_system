@@ -1,9 +1,13 @@
 package com.keita.nakamura.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,9 @@ public class CompaniesController {
      * 会社一覧
      */
     @GetMapping(value = "/companies/index")
-    public String index(Model model, @RequestParam(name = "name", required = false) String name, @RequestParam(name = "representative", required = false) String representative, @RequestParam(name = "prefectureCode", required = false) String prefectureCode) {
+    public String index(Model model, @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "representative", required = false) String representative,
+            @RequestParam(name = "prefectureCode", required = false) String prefectureCode) {
         List<Company> companies = null;
         if (name != null || representative != null || prefectureCode != null) {
             companies = CompanyService.findBySearch(name, representative, prefectureCode);
@@ -214,6 +220,86 @@ public class CompaniesController {
             e.printStackTrace();
         }
         return companies;
+    }
+
+    /**
+     * CSVエクスポート画面
+     */
+    @GetMapping(value = "/companies/export")
+    public String csvExport(Model model) {
+
+        return "companies/export";
+    }
+
+    /**
+     * コンマ
+     */
+    private static final String COMMA = ",";
+
+    /**
+     * 改行
+     */
+    private static final String NEW_LINE = "\n";
+
+    /**
+     * CSVエクスポート
+     */
+    @PostMapping(value = "/companies/export")
+    public void export() {
+        List<Company> companies = CompanyService.findAll();
+
+        FileWriter fileWriter = null;
+        PrintWriter printWriter = null;
+        try {
+            fileWriter = new FileWriter("companies.csv", false);
+            printWriter = new PrintWriter(new BufferedWriter(fileWriter));
+
+            // ヘッダー
+            printWriter.print("会社名");
+            printWriter.print(COMMA);
+            printWriter.print("代表者");
+            printWriter.print(COMMA);
+            printWriter.print("電話番号");
+            printWriter.print(COMMA);
+            printWriter.print("郵便番号");
+            printWriter.print(COMMA);
+            printWriter.print("都道府県コード");
+            printWriter.print(COMMA);
+            printWriter.print("住所");
+            printWriter.print(COMMA);
+            printWriter.print("メールアドレス");
+            printWriter.print(NEW_LINE);
+
+            for (Company company : companies) {
+                printWriter.print(company.getName());
+                printWriter.print(COMMA);
+                printWriter.print(company.getRepresentative());
+                printWriter.print(COMMA);
+                printWriter.print(company.getPhoneNumber());
+                printWriter.print(COMMA);
+                printWriter.print(company.getPostalCode());
+                printWriter.print(COMMA);
+                printWriter.print(company.getPrefectureCode());
+                printWriter.print(COMMA);
+                printWriter.print(company.getAddress());
+                printWriter.print(COMMA);
+                printWriter.print(company.getMailAddress());
+                printWriter.print(NEW_LINE);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                printWriter.close();
+                fileWriter.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
