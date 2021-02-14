@@ -2,17 +2,25 @@ package com.keita.nakamura.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +44,9 @@ public class CompaniesController {
 
     @Autowired
     CompanyService CompanyService;
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     /**
      * 都道府県リスト(都道府県コードを都道府県に変換するために使用)
@@ -243,8 +254,81 @@ public class CompaniesController {
 
     /**
      * CSVエクスポート
+     *
+     * @param response
+     * @return
      */
     @PostMapping(value = "/companies/export")
+    public String exportExecute(HttpServletResponse response) {
+        Resource resource = new FileSystemResource("src/main/resources/companies.csv");
+
+        byte[] fileContent = null;
+
+        fileContent = this.StreamToByte(resource);
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=" + "companies.csv");
+        this.export();
+
+        this.OutputSreamWrite(response, fileContent);
+
+        return null;
+    }
+
+    /**
+     * InputStreamからバイト文字列に変換
+     *
+     * @param resource
+     * @return
+     */
+    private byte[] StreamToByte(Resource resource) {
+
+        int nRead;
+        InputStream is = null;
+        byte[] fileContent = new byte[16384];
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        // ファイルをバイト形式に変換
+        try {
+            is = new FileInputStream(resource.getFile().toString());
+
+            while ((nRead = is.read(fileContent, 0, fileContent.length)) != -1) {
+                buffer.write(fileContent, 0, nRead);
+            }
+
+            buffer.flush();
+
+            return buffer.toByteArray();
+        } catch (FileNotFoundException e) {
+            e.getStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * ダウンロードファイル書き込み
+     * 
+     * @param response
+     * @param fileContent
+     */
+    public void OutputSreamWrite(HttpServletResponse response, byte[] fileContent) {
+        OutputStream os = null;
+        try {
+            os = response.getOutputStream();
+            os.write(fileContent);
+            os.flush();
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+    }
+
+    /**
+     * CSVエクスポート
+     *
+     * @return
+     */
     public void export() {
         List<Company> companies = CompanyService.findAll();
 
@@ -286,6 +370,7 @@ public class CompaniesController {
                 printWriter.print(company.getMailAddress());
                 printWriter.print(NEW_LINE);
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -296,6 +381,7 @@ public class CompaniesController {
             try {
                 printWriter.close();
                 fileWriter.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
