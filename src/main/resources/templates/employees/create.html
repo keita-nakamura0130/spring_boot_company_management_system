@@ -13,6 +13,8 @@
   <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
   <!-- Theme style -->
   <link rel="stylesheet" th:href="@{/assets/AdminLTE/dist/css/adminlte.min.css}">
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
 
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -20,7 +22,8 @@
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
     <!-- Navbar -->
-    <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light"></nav>
+    <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light">
+    </nav>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -52,7 +55,8 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form th:action="@{/employees/create/{companyId} (companyId = ${employee.companyId})}" method="POST" th:object="${employee}">
+                <form th:action="@{/employees/create/{companyId} (companyId = ${employee.companyId})}" method="POST"
+                  th:object="${employee}">
                   <div class="card-body">
                     <input type="hidden" name="companyId" th:value="${employee.companyId}">
 
@@ -63,11 +67,54 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="dapartment">部署</label>
-                      <input type="text" name="department" th:value="${employee.department}" id="department"
+                      <label for="positionId">役職</label>
+                      <select name="positionId" id="positionId" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('positionId')}" th:errors="${employee.positionId}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="departmentId">部署</label>
+                      <select name="departmentId" id="departmentId" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('departmentId')}" th:errors="${employee.departmentId}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="birthday">生年月日</label>
+                      <input type="text" name="birthday" th:value=${employee.birthday} id="birthday"
                         class="form-control">
-                      <div th:if="${#fields.hasErrors('department')}" th:errors="${employee.department}"
-                        class="has-error"></div>
+                      <div th:if="${#fields.hasErrors('birthday')}" th:errors="${employee.birthday}" class="has-error">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="sex">性別</label>
+                      <select name="sex" id="sex" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option value="1">男性</option>
+                        <option value="2">女性</option>
+                        <option value="9">その他</option>
+                        <option value="0">不明</option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('sex')}" th:errors="${employee.sex}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="blood">血液型</label>
+                      <select name="blood" id="blood" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option value="1">A型</option>
+                        <option value="2">B型</option>
+                        <option value="3">O型</option>
+                        <option value="4">AB型</option>
+                        <option value="0">不明</option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('blood')}" th:errors="${employee.blood}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
@@ -81,65 +128,18 @@
                     <div class="form-group">
                       <label for="postalCode">郵便番号</label>
                       <input type="text" name="postalCode" th:value="${employee.postalCode}" id="postalCode"
-                        class="form-control" onKeyUp="AjaxZip3.zip2addr(this,'','prefectureCode','address');">
+                        class="form-control" onKeyUp="AjaxZip3.zip2addr(this,'','prefectureId','address');">
                       <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${employee.postalCode}"
                         class="has-error"></div>
                     </div>
 
                     <div class="form-group">
-                      <label for="prefectureCode">都道府県</label>
-                      <select name="prefectureCode" id="prefectureCode" class="form-control">
+                      <label for="prefectureId">都道府県</label>
+                      <select name="prefectureId" id="prefectureId" class="form-control">
                         <option value="" selected>選択してください</option>
-                        <option value="1">北海道</option>
-                        <option value="2">青森県</option>
-                        <option value="3">岩手県</option>
-                        <option value="4">宮城県</option>
-                        <option value="5">秋田県</option>
-                        <option value="6">山形県</option>
-                        <option value="7">福島県</option>
-                        <option value="8">茨城県</option>
-                        <option value="9">栃木県</option>
-                        <option value="10">群馬県</option>
-                        <option value="11">埼玉県</option>
-                        <option value="12">千葉県</option>
-                        <option value="13">東京都</option>
-                        <option value="14">神奈川県</option>
-                        <option value="15">新潟県</option>
-                        <option value="16">富山県</option>
-                        <option value="17">石川県</option>
-                        <option value="18">福井県</option>
-                        <option value="19">山梨県</option>
-                        <option value="20">長野県</option>
-                        <option value="21">岐阜県</option>
-                        <option value="22">静岡県</option>
-                        <option value="23">愛知県</option>
-                        <option value="24">三重県</option>
-                        <option value="25">滋賀県</option>
-                        <option value="26">京都府</option>
-                        <option value="27">大阪府</option>
-                        <option value="28">兵庫県</option>
-                        <option value="29">奈良県</option>
-                        <option value="30">和歌山県</option>
-                        <option value="31">鳥取県</option>
-                        <option value="32">島根県</option>
-                        <option value="33">岡山県</option>
-                        <option value="34">広島県</option>
-                        <option value="35">山口県</option>
-                        <option value="36">徳島県</option>
-                        <option value="37">香川県</option>
-                        <option value="38">愛媛県</option>
-                        <option value="39">高知県</option>
-                        <option value="40">福岡県</option>
-                        <option value="41">佐賀県</option>
-                        <option value="42">長崎県</option>
-                        <option value="43">熊本県</option>
-                        <option value="44">大分県</option>
-                        <option value="45">宮崎県</option>
-                        <option value="46">鹿児島県</option>
-                        <option value="47">沖縄県</option>
+                        <option th:each="prefecture : ${prefectures}" th:value="${prefecture.id}" th:text="${prefecture.name}"></option>
                       </select>
-                      <div th:if="${#fields.hasErrors('prefectureCode')}" th:errors="${employee.prefectureCode}"
-                        class="has-error"></div>
+                      <div th:if="${#fields.hasErrors('prefectureId')}" th:errors="${employee.prefectureId}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">
@@ -156,6 +156,31 @@
                         class="form-control">
                       <div th:if="${#fields.hasErrors('mailAddress')}" th:errors="${employee.mailAddress}"
                         class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="employmentStatusId">雇用形態</label>
+                      <select name="employmentStatusId" id="employmentStatusId" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option th:each="status : ${employmentStatus}" th:value="${status.id}" th:text="${status.name}">
+                        </option>
+                      </select>
+                      <div th:if="${#fields.hasErrors('employmentStatusId')}" th:errors="${employee.employmentStatusId}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="joinDate">入社日</label>
+                      <input type="text" name="joinDate" th:value=${employee.joinDate} id="joinDate" class="form-control">
+                      <div th:if="${#fields.hasErrors('joinDate')}" th:errors="${employee.joinDate}" class="has-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="retirementDate">退職日</label>
+                      <input type="text" name="retirementDate" th:value=${employee.retirementDate} id="retirementDate"
+                        class="form-control">
+                      <div th:if="${#fields.hasErrors('retirementDate')}" th:errors="${employee.retirementDate}"
+                        class="has-error">
+                      </div>
                     </div>
                   </div>
                   <!-- /.card-body -->
@@ -244,6 +269,10 @@
       });
     });
   </script>
+  <!-- Datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+  <script th:src="@{/js/main.js}"></script>
   <script src="https://ajaxzip3.github.io/ajaxzip3.js"></script>
 </body>
 

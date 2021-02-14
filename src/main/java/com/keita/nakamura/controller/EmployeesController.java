@@ -13,8 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.keita.nakamura.entity.Department;
 import com.keita.nakamura.entity.Employee;
+import com.keita.nakamura.entity.EmploymentStatus;
+import com.keita.nakamura.entity.Position;
+import com.keita.nakamura.entity.Prefecture;
+import com.keita.nakamura.service.DepartmentService;
 import com.keita.nakamura.service.EmployeeService;
+import com.keita.nakamura.service.EmploymentStatusService;
+import com.keita.nakamura.service.PositionService;
+import com.keita.nakamura.service.PrefectureService;
 
 /**
  * Employeesコントローラー
@@ -24,6 +32,18 @@ public class EmployeesController {
 
     @Autowired
     EmployeeService EmployeeService;
+
+    @Autowired
+    PositionService positionService;
+
+    @Autowired
+    DepartmentService departmentService;
+
+    @Autowired
+    EmploymentStatusService employmentStatusService;
+
+    @Autowired
+    PrefectureService prefectureService;
 
     /**
      * 都道府県リスト(都道府県コードを都道府県に変換するために使用)
@@ -55,8 +75,19 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        Position position = positionService.findById(employee.getPositionId());
+        model.addAttribute("position", position);
+
+        Department department = departmentService.findById(employee.getDepartmentId());
+        model.addAttribute("department", department);
+
+        EmploymentStatus employmentStatus = employmentStatusService.findById(employee.getEmploymentStatusId());
+        model.addAttribute("employmentStatus", employmentStatus);
+
+        Prefecture prefecture = prefectureService.findById(employee.getPrefectureId());
+        model.addAttribute("prefecture", prefecture);
+
         model.addAttribute("companyId", companyId);
-        model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "employees/show";
     }
@@ -70,6 +101,18 @@ public class EmployeesController {
         employee.setCompanyId(companyId);
         model.addAttribute("employee", employee);
 
+        List<Position> positions = positionService.findAll();
+        model.addAttribute("positions", positions);
+
+        List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
+
+        List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+        model.addAttribute("employmentStatus", employmentStatus);
+
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
+
         model.addAttribute("companyId", companyId);
 
         return "employees/create";
@@ -79,8 +122,20 @@ public class EmployeesController {
      * 社員追加
      */
     @PostMapping(value = "/employees/create/{companyId}")
-    public String store(@ModelAttribute @Validated Employee employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId) {
+    public String store(@ModelAttribute @Validated Employee employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Position> positions = positionService.findAll();
+            model.addAttribute("positions", positions);
+
+            List<Department> departments = departmentService.findAll();
+            model.addAttribute("departments", departments);
+
+            List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+            model.addAttribute("employmentStatus", employmentStatus);
+
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
+
             return "employees/create";
         }
         EmployeeService.insert(employee);
@@ -98,6 +153,18 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        List<Position> positions = positionService.findAll();
+        model.addAttribute("positions", positions);
+
+        List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
+
+        List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+        model.addAttribute("employmentStatus", employmentStatus);
+
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
+
         model.addAttribute("companyId", companyId);
 
         return "employees/edit";
@@ -107,8 +174,19 @@ public class EmployeesController {
      * 社員編集
      */
     @PostMapping(value = "/employees/edit/{companyId}/{id}")
-    public String update(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, @PathVariable int id) {
+    public String update(@ModelAttribute @Validated Employee Employee, BindingResult bidingResult, RedirectAttributes redirectAttributes, @PathVariable int companyId, @PathVariable int id, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Position> positions = positionService.findAll();
+            model.addAttribute("positions", positions);
+
+            List<Department> departments = departmentService.findAll();
+            model.addAttribute("departments", departments);
+
+            List<EmploymentStatus> employmentStatus = employmentStatusService.findAll();
+            model.addAttribute("employmentStatus", employmentStatus);
+
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
             return "employees/edit";
         }
         EmployeeService.update(Employee);

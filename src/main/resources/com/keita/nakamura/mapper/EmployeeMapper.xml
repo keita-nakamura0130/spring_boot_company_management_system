@@ -10,12 +10,12 @@
         SELECT * FROM employees WHERE id = #{id} AND deleted is NULL;
     </select>
     <insert id="insert">
-        INSERT INTO employees (company_id, name, department, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
-        VALUES (#{companyId}, #{name}, #{department}, #{phoneNumber}, #{postalCode}, #{prefectureCode}, #{address}, #{mailAddress}, NOW(), NOW());
+        INSERT INTO employees (company_id, position_id, department_id, employment_status_id, prefecture_id, name, birthday, sex, blood, phone_number, postal_code, address, mail_address, join_date, retirement_date, created, modified)
+        VALUES (#{companyId}, #{positionId}, #{departmentId}, #{employmentStatusId}, #{prefectureId}, #{name}, #{birthday}, #{sex}, #{blood}, #{phoneNumber}, #{postalCode}, #{address}, #{mailAddress}, #{joinDate}, #{retirementDate}, NOW(), NOW());
     </insert>
     <update id="update">
         UPDATE employees
-        SET name = #{name}, department = #{department}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        SET position_id = #{positionId}, department_id = #{departmentId}, employment_status_id = #{employmentStatusId}, prefecture_id = #{prefectureId}, name = #{name}, birthday = #{birthday}, sex = #{sex}, blood = #{blood}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, address = #{address}, mail_address = #{mailAddress}, join_date = #{joinDate}, retirement_date = #{retirementDate}, modified = NOW()
         WHERE id = #{id};
     </update>
     <delete id="delete">
