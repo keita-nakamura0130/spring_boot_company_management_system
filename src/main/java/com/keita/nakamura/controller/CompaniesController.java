@@ -236,7 +236,7 @@ public class CompaniesController {
 
             // ヘッダーを削除
             companies.remove(0);
-            
+
             br.close();
             reader.close();
 
@@ -264,6 +264,9 @@ public class CompaniesController {
 
     /**
      * CSVエクスポート画面
+     *
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/export")
     public String csvExport(Model model) {
@@ -288,7 +291,9 @@ public class CompaniesController {
      * @return
      */
     @PostMapping(value = "/companies/export")
-    public String exportExecute(HttpServletResponse response) {
+    public String csvExportExecute(HttpServletResponse response) {
+        this.csvExportCreate();
+
         Resource resource = new FileSystemResource("src/main/resources/companies.csv");
 
         byte[] fileContent = null;
@@ -297,11 +302,79 @@ public class CompaniesController {
 
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=" + "companies.csv");
-        this.export();
 
-        this.OutputSreamWrite(response, fileContent);
+        this.OutputStreamWrite(response, fileContent);
 
         return null;
+    }
+
+   /**
+    * CSVエクスポート用のファイルを作成
+    */
+    private void csvExportCreate() {
+        // 初期化
+        List<Company> companies = CompanyService.findAll();
+        FileWriter fileWriter = null;
+        BufferedWriter bf = null;
+        PrintWriter printWriter = null;
+
+        try {
+            fileWriter = new FileWriter("src/main/resources/companies.csv", false);
+            bf = new BufferedWriter(fileWriter);
+            printWriter = new PrintWriter(bf);
+
+            // ヘッダー
+            printWriter.print("会社名");
+            printWriter.print(COMMA);
+            printWriter.print("代表者");
+            printWriter.print(COMMA);
+            printWriter.print("電話番号");
+            printWriter.print(COMMA);
+            printWriter.print("郵便番号");
+            printWriter.print(COMMA);
+            printWriter.print("都道府県コード");
+            printWriter.print(COMMA);
+            printWriter.print("住所");
+            printWriter.print(COMMA);
+            printWriter.print("メールアドレス");
+            printWriter.print(NEW_LINE);
+
+            for (Company company : companies) {
+                printWriter.print(company.getName());
+                printWriter.print(COMMA);
+                printWriter.print(company.getRepresentative());
+                printWriter.print(COMMA);
+                printWriter.print(company.getPhoneNumber());
+                printWriter.print(COMMA);
+                printWriter.print(company.getPostalCode());
+                printWriter.print(COMMA);
+                printWriter.print(company.getPrefectureCode());
+                printWriter.print(COMMA);
+                printWriter.print(company.getAddress());
+                printWriter.print(COMMA);
+                printWriter.print(company.getMailAddress());
+                printWriter.print(NEW_LINE);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("CSVを正しく読み込めませんでした。");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("CSVを正しく読み込めませんでした。");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("CSVを正しく読み込めませんでした。");
+        } finally {
+            try {
+                printWriter.close();
+                bf.close();
+                fileWriter.close();
+            } catch (Exception e) {
+                System.out.println("CSVを正しく閉じることができませんでした。");
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -342,7 +415,7 @@ public class CompaniesController {
      * @param response
      * @param fileContent
      */
-    public void OutputSreamWrite(HttpServletResponse response, byte[] fileContent) {
+    private void OutputStreamWrite(HttpServletResponse response, byte[] fileContent) {
         OutputStream os = null;
         try {
             os = response.getOutputStream();
@@ -350,70 +423,6 @@ public class CompaniesController {
             os.flush();
         } catch (IOException e) {
             e.getStackTrace();
-        }
-    }
-
-    /**
-     * CSVエクスポート
-     *
-     * @return
-     */
-    public void export() {
-        List<Company> companies = CompanyService.findAll();
-
-        FileWriter fileWriter = null;
-        PrintWriter printWriter = null;
-        try {
-            fileWriter = new FileWriter("companies.csv", false);
-            printWriter = new PrintWriter(new BufferedWriter(fileWriter));
-
-            // ヘッダー
-            printWriter.print("会社名");
-            printWriter.print(COMMA);
-            printWriter.print("代表者");
-            printWriter.print(COMMA);
-            printWriter.print("電話番号");
-            printWriter.print(COMMA);
-            printWriter.print("郵便番号");
-            printWriter.print(COMMA);
-            printWriter.print("都道府県コード");
-            printWriter.print(COMMA);
-            printWriter.print("住所");
-            printWriter.print(COMMA);
-            printWriter.print("メールアドレス");
-            printWriter.print(NEW_LINE);
-
-            for (Company company : companies) {
-                printWriter.print(company.getName());
-                printWriter.print(COMMA);
-                printWriter.print(company.getRepresentative());
-                printWriter.print(COMMA);
-                printWriter.print(company.getPhoneNumber());
-                printWriter.print(COMMA);
-                printWriter.print(company.getPostalCode());
-                printWriter.print(COMMA);
-                printWriter.print(company.getPrefectureCode());
-                printWriter.print(COMMA);
-                printWriter.print(company.getAddress());
-                printWriter.print(COMMA);
-                printWriter.print(company.getMailAddress());
-                printWriter.print(NEW_LINE);
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                printWriter.close();
-                fileWriter.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
