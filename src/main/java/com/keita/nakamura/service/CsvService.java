@@ -140,25 +140,26 @@ public class CsvService {
     public byte[] StreamToByte(Resource resource) {
 
         int nRead;
-        InputStream is = null;
         byte[] fileContent = new byte[16384];
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         // ファイルをバイト形式に変換
-        try {
-            is = new FileInputStream(resource.getFile().toString());
-
+        try (InputStream is = new FileInputStream(resource.getFile().toString())) {
             while ((nRead = is.read(fileContent, 0, fileContent.length)) != -1) {
                 buffer.write(fileContent, 0, nRead);
             }
-
             buffer.flush();
 
             return buffer.toByteArray();
         } catch (FileNotFoundException e) {
             e.getStackTrace();
+            System.out.println("バイナリデータに正しく変換できませんでした。");
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("バイナリデータに正しく変換できませんでした。");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("バイナリデータに正しく変換できませんでした。");
         }
         return null;
     }

@@ -221,7 +221,6 @@ public class CompaniesController {
         Resource resource = new FileSystemResource("src/main/resources/companies.csv");
 
         byte[] fileContent = null;
-
         fileContent = csvService.StreamToByte(resource);
 
         response.setContentType("application/octet-stream");
