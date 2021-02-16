@@ -216,7 +216,7 @@ public class CompaniesController {
      */
     @PostMapping(value = "/companies/export")
     public String csvExportExecute(HttpServletResponse response) {
-        csvService.csvExportCreate();
+        csvService.csvFileCreate();
 
         Resource resource = new FileSystemResource("src/main/resources/companies.csv");
 

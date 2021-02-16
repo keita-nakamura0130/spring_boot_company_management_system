@@ -81,49 +81,42 @@ public class CsvService {
     /**
     * CSVエクスポート用のファイルを作成
     */
-    public void csvExportCreate() {
-        // 初期化
+    public void csvFileCreate() {
         List<Company> companies = CompanyService.findAll();
-        FileWriter fileWriter = null;
-        BufferedWriter bf = null;
-        PrintWriter printWriter = null;
 
-        try {
-            fileWriter = new FileWriter("src/main/resources/companies.csv", false);
-            bf = new BufferedWriter(fileWriter);
-            printWriter = new PrintWriter(bf);
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src/main/resources/companies.csv", false)))) {
 
             // ヘッダー
-            printWriter.print("会社名");
-            printWriter.print(COMMA);
-            printWriter.print("代表者");
-            printWriter.print(COMMA);
-            printWriter.print("電話番号");
-            printWriter.print(COMMA);
-            printWriter.print("郵便番号");
-            printWriter.print(COMMA);
-            printWriter.print("都道府県コード");
-            printWriter.print(COMMA);
-            printWriter.print("住所");
-            printWriter.print(COMMA);
-            printWriter.print("メールアドレス");
-            printWriter.print(NEW_LINE);
+            pw.print("会社名");
+            pw.print(COMMA);
+            pw.print("代表者");
+            pw.print(COMMA);
+            pw.print("電話番号");
+            pw.print(COMMA);
+            pw.print("郵便番号");
+            pw.print(COMMA);
+            pw.print("都道府県コード");
+            pw.print(COMMA);
+            pw.print("住所");
+            pw.print(COMMA);
+            pw.print("メールアドレス");
+            pw.print(NEW_LINE);
 
             for (Company company : companies) {
-                printWriter.print(company.getName());
-                printWriter.print(COMMA);
-                printWriter.print(company.getRepresentative());
-                printWriter.print(COMMA);
-                printWriter.print(company.getPhoneNumber());
-                printWriter.print(COMMA);
-                printWriter.print(company.getPostalCode());
-                printWriter.print(COMMA);
-                printWriter.print(company.getPrefectureCode());
-                printWriter.print(COMMA);
-                printWriter.print(company.getAddress());
-                printWriter.print(COMMA);
-                printWriter.print(company.getMailAddress());
-                printWriter.print(NEW_LINE);
+                pw.print(company.getName());
+                pw.print(COMMA);
+                pw.print(company.getRepresentative());
+                pw.print(COMMA);
+                pw.print(company.getPhoneNumber());
+                pw.print(COMMA);
+                pw.print(company.getPostalCode());
+                pw.print(COMMA);
+                pw.print(company.getPrefectureCode());
+                pw.print(COMMA);
+                pw.print(company.getAddress());
+                pw.print(COMMA);
+                pw.print(company.getMailAddress());
+                pw.print(NEW_LINE);
             }
 
         } catch (FileNotFoundException e) {
@@ -135,15 +128,6 @@ public class CsvService {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("CSVを正しく読み込めませんでした。");
-        } finally {
-            try {
-                printWriter.close();
-                bf.close();
-                fileWriter.close();
-            } catch (Exception e) {
-                System.out.println("CSVを正しく閉じることができませんでした。");
-                e.printStackTrace();
-            }
         }
     }
 
