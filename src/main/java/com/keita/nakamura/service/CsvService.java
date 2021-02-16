@@ -171,13 +171,15 @@ public class CsvService {
      * @param fileContent
      */
     public void OutputStreamWrite(HttpServletResponse response, byte[] fileContent) {
-        OutputStream os = null;
-        try {
-            os = response.getOutputStream();
+        try (OutputStream os = response.getOutputStream()) {
             os.write(fileContent);
             os.flush();
         } catch (IOException e) {
             e.getStackTrace();
+            System.out.println("ダウンロードファイルに正しく書き込めませんでした。");
+        } catch (Exception e) {
+            e.getStackTrace();
+            System.out.println("ダウンロードファイルに正しく書き込めませんでした。");
         }
     }
 }
