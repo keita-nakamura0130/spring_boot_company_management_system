@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,33 +49,21 @@ public class CsvService {
      * @return
      */
     public List<Company> getCompanyInstancesFromCsv(MultipartFile csv) {
-        // 初期化
         List<Company> companies = new ArrayList<>();
-        InputStream stream = null;
-        Reader reader = null;
-        BufferedReader br = null;
         String line = null;
 
-        try {
-            stream = csv.getInputStream();
-            reader = new InputStreamReader(stream);
-            br = new BufferedReader(reader);
-
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(csv.getInputStream()))) {
             while ((line = br.readLine()) != null) {
-                String[] column = line.split(",");
+                String[] column = line.split(COMMA);
 
                 // [0]会社名, [1]代表者, [2]電話番号, [3]郵便番号, [4]都道府県コード, [5]住所, [6]メールアドレス
                 Company company = new Company(column[0], column[1], column[2], column[3], column[4], column[5], column[6]);
 
                 companies.add(company);
             }
-            line = br.readLine();
 
             // ヘッダーを削除
             companies.remove(0);
-
-            br.close();
-            reader.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("CSVを正しく読み込めませんでした。");
@@ -87,15 +74,6 @@ public class CsvService {
         } catch (Exception e) {
             System.out.println("CSVを正しく読み込めませんでした。");
             e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                reader.close();
-                stream.close();
-            } catch (Exception e) {
-                System.out.println("CSVを正しく閉じることができませんでした。");
-                e.printStackTrace();
-            }
         }
         return companies;
     }
