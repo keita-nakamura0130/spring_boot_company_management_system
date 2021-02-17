@@ -30,12 +30,21 @@ import com.keita.nakamura.service.CsvService;
 @Controller
 public class CompaniesController {
 
+    /**
+     * Companyサービス
+     */
     @Autowired
-    CompanyService CompanyService;
+    CompanyService companyService;
 
+    /**
+     * CSVサービス
+     */
     @Autowired
     CsvService csvService;
 
+    /**
+     * ResourceLoader
+     */
     @Autowired
     ResourceLoader resourceLoader;
 
@@ -49,6 +58,12 @@ public class CompaniesController {
 
     /**
      * 会社一覧
+     *
+     * @param model
+     * @param name
+     * @param representative
+     * @param prefectureCode
+     * @return
      */
     @GetMapping(value = "/companies/index")
     public String index(Model model, @RequestParam(name = "name", required = false) String name,
@@ -56,10 +71,10 @@ public class CompaniesController {
             @RequestParam(name = "prefectureCode", required = false) String prefectureCode) {
         List<Company> companies = null;
         if (name != null || representative != null || prefectureCode != null) {
-            companies = CompanyService.findBySearch(name, representative, prefectureCode);
+            companies = companyService.findBySearch(name, representative, prefectureCode);
             model.addAttribute("prefectureCode", prefectureCode);
         } else {
-            companies = CompanyService.findAll();
+            companies = companyService.findAll();
         }
         model.addAttribute("companies", companies);
 
@@ -70,10 +85,14 @@ public class CompaniesController {
 
     /**
      * 会社詳細
+     *
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/show/{id}")
     public String show(@PathVariable int id, Model model) {
-        Company company = CompanyService.findById(id);
+        Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -83,6 +102,9 @@ public class CompaniesController {
 
     /**
      * 会社追加画面
+     *
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/create")
     public String create(Model model) {
@@ -94,6 +116,11 @@ public class CompaniesController {
 
     /**
      * 会社追加
+     *
+     * @param company
+     * @param bidingResult
+     * @param redirectAttributes
+     * @return
      */
     @PostMapping(value = "/companies/create")
     public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult,
@@ -101,7 +128,7 @@ public class CompaniesController {
         if (bidingResult.hasErrors()) {
             return "companies/create";
         }
-        CompanyService.insert(company);
+        companyService.insert(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
 
@@ -110,10 +137,14 @@ public class CompaniesController {
 
     /**
      * 会社編集画面
+     *
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        Company company = CompanyService.findById(id);
+        Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
         return "companies/edit";
@@ -121,6 +152,11 @@ public class CompaniesController {
 
     /**
      * 会社編集
+     *
+     * @param company
+     * @param bidingResult
+     * @param redirectAttributes
+     * @return
      */
     @PostMapping(value = "/companies/edit/{id}")
     public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult,
@@ -128,7 +164,7 @@ public class CompaniesController {
         if (bidingResult.hasErrors()) {
             return "companies/edit";
         }
-        CompanyService.update(company);
+        companyService.update(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を編集しました。");
 
@@ -137,10 +173,14 @@ public class CompaniesController {
 
     /**
      * 会社削除画面
+     *
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/delete/{id}")
     public String delete(@PathVariable int id, Model model) {
-        Company company = CompanyService.findById(id);
+        Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -150,10 +190,14 @@ public class CompaniesController {
 
     /**
      * 会社削除
+     *
+     * @param id
+     * @param redirectAttributes
+     * @return
      */
     @PostMapping(value = "/companies/delete/{id}")
     public String destroy(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        CompanyService.delete(id);
+        companyService.delete(id);
 
         redirectAttributes.addFlashAttribute("success", "会社を削除しました。");
 
@@ -186,10 +230,7 @@ public class CompaniesController {
 //        }
 
         List<Company> companies = csvService.getCompanyInstancesFromCsv(csv);
-
-        for (Company company : companies) {
-            CompanyService.insert(company);
-        }
+        companyService.bulkInsert(companies);
 
         redirectAttributes.addFlashAttribute("success", "会社をCSVインポートにて追加しました。");
 

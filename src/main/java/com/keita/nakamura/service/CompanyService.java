@@ -57,6 +57,15 @@ public class CompanyService {
     }
 
     /**
+     * 会社をバルクインサート
+     *
+     * @param companies
+     */
+    public void bulkInsert(List<Company> companies) {
+        CompanyMapper.bulkInsert(companies);
+    }
+
+    /**
      * 会社を編集
      *
      * @param company
