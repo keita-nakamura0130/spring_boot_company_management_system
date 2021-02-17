@@ -31,7 +31,7 @@ import com.keita.nakamura.service.CsvService;
 public class CompaniesController {
 
     @Autowired
-    CompanyService CompanyService;
+    CompanyService companyService;
 
     @Autowired
     CsvService csvService;
@@ -56,10 +56,10 @@ public class CompaniesController {
             @RequestParam(name = "prefectureCode", required = false) String prefectureCode) {
         List<Company> companies = null;
         if (name != null || representative != null || prefectureCode != null) {
-            companies = CompanyService.findBySearch(name, representative, prefectureCode);
+            companies = companyService.findBySearch(name, representative, prefectureCode);
             model.addAttribute("prefectureCode", prefectureCode);
         } else {
-            companies = CompanyService.findAll();
+            companies = companyService.findAll();
         }
         model.addAttribute("companies", companies);
 
@@ -73,7 +73,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/show/{id}")
     public String show(@PathVariable int id, Model model) {
-        Company company = CompanyService.findById(id);
+        Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -101,7 +101,7 @@ public class CompaniesController {
         if (bidingResult.hasErrors()) {
             return "companies/create";
         }
-        CompanyService.insert(company);
+        companyService.insert(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を追加しました。");
 
@@ -113,7 +113,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        Company company = CompanyService.findById(id);
+        Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
         return "companies/edit";
@@ -128,7 +128,7 @@ public class CompaniesController {
         if (bidingResult.hasErrors()) {
             return "companies/edit";
         }
-        CompanyService.update(company);
+        companyService.update(company);
 
         redirectAttributes.addFlashAttribute("success", "会社を編集しました。");
 
@@ -140,7 +140,7 @@ public class CompaniesController {
      */
     @GetMapping(value = "/companies/delete/{id}")
     public String delete(@PathVariable int id, Model model) {
-        Company company = CompanyService.findById(id);
+        Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
         model.addAttribute("PREFECTURES", PREFECTURES);
@@ -153,7 +153,7 @@ public class CompaniesController {
      */
     @PostMapping(value = "/companies/delete/{id}")
     public String destroy(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        CompanyService.delete(id);
+        companyService.delete(id);
 
         redirectAttributes.addFlashAttribute("success", "会社を削除しました。");
 
@@ -188,7 +188,7 @@ public class CompaniesController {
         List<Company> companies = csvService.getCompanyInstancesFromCsv(csv);
 
         for (Company company : companies) {
-            CompanyService.insert(company);
+            companyService.insert(company);
         }
 
         redirectAttributes.addFlashAttribute("success", "会社をCSVインポートにて追加しました。");
