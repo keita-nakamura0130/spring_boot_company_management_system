@@ -41,6 +41,14 @@ public interface CompanyMapper {
     void insert(Company company);
 
     /**
+     * 会社をバルクインサート
+     *
+     * @param company
+     * @return
+     */
+    void bulkInsert(List<Company> companies);
+
+    /**
      * 会社を編集
      *
      * @param company

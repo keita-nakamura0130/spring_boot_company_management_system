@@ -230,10 +230,7 @@ public class CompaniesController {
 //        }
 
         List<Company> companies = csvService.getCompanyInstancesFromCsv(csv);
-
-        for (Company company : companies) {
-            companyService.insert(company);
-        }
+        companyService.bulkInsert(companies);
 
         redirectAttributes.addFlashAttribute("success", "会社をCSVインポートにて追加しました。");
 
