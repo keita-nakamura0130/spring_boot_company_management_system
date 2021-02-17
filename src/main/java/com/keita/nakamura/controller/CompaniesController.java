@@ -30,12 +30,21 @@ import com.keita.nakamura.service.CsvService;
 @Controller
 public class CompaniesController {
 
+    /**
+     * Companyサービス
+     */
     @Autowired
     CompanyService companyService;
 
+    /**
+     * CSVサービス
+     */
     @Autowired
     CsvService csvService;
 
+    /**
+     * ResourceLoader
+     */
     @Autowired
     ResourceLoader resourceLoader;
 
@@ -49,6 +58,12 @@ public class CompaniesController {
 
     /**
      * 会社一覧
+     *
+     * @param model
+     * @param name
+     * @param representative
+     * @param prefectureCode
+     * @return
      */
     @GetMapping(value = "/companies/index")
     public String index(Model model, @RequestParam(name = "name", required = false) String name,
@@ -70,6 +85,10 @@ public class CompaniesController {
 
     /**
      * 会社詳細
+     *
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/show/{id}")
     public String show(@PathVariable int id, Model model) {
@@ -83,6 +102,9 @@ public class CompaniesController {
 
     /**
      * 会社追加画面
+     *
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/create")
     public String create(Model model) {
@@ -94,6 +116,11 @@ public class CompaniesController {
 
     /**
      * 会社追加
+     *
+     * @param company
+     * @param bidingResult
+     * @param redirectAttributes
+     * @return
      */
     @PostMapping(value = "/companies/create")
     public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult,
@@ -110,6 +137,10 @@ public class CompaniesController {
 
     /**
      * 会社編集画面
+     *
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
@@ -121,6 +152,11 @@ public class CompaniesController {
 
     /**
      * 会社編集
+     *
+     * @param company
+     * @param bidingResult
+     * @param redirectAttributes
+     * @return
      */
     @PostMapping(value = "/companies/edit/{id}")
     public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult,
@@ -137,6 +173,10 @@ public class CompaniesController {
 
     /**
      * 会社削除画面
+     *
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping(value = "/companies/delete/{id}")
     public String delete(@PathVariable int id, Model model) {
@@ -150,6 +190,10 @@ public class CompaniesController {
 
     /**
      * 会社削除
+     *
+     * @param id
+     * @param redirectAttributes
+     * @return
      */
     @PostMapping(value = "/companies/delete/{id}")
     public String destroy(@PathVariable int id, RedirectAttributes redirectAttributes) {
