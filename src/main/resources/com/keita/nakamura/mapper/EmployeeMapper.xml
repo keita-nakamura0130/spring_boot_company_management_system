@@ -21,4 +21,7 @@
     <delete id="delete">
         UPDATE employees SET deleted = NOW() WHERE id = #{id};
     </delete>
+    <delete id="deleteByCompanyId">
+        UPDATE employees SET deleted = NOW() WHERE company_id = #{companyId};
+    </delete>
 </mapper>

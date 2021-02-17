@@ -46,4 +46,11 @@ public interface EmployeeMapper {
      * @param id
      */
     void delete(int id);
+
+    /**
+     * 会社IDより社員を削除
+     *
+     * @param companyId
+     */
+    void deleteByCompanyId(int companyId);
 }
