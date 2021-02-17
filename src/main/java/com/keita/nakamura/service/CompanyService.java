@@ -4,25 +4,38 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.keita.nakamura.entity.Company;
 import com.keita.nakamura.mapper.CompanyMapper;
+import com.keita.nakamura.mapper.EmployeeMapper;
 
 /**
  * Companyサービス
  */
 @Service
 public class CompanyService {
+
+    /**
+     * Companyマッパー
+     */
     @Autowired
-    CompanyMapper CompanyMapper;
+    CompanyMapper companyMapper;
+
+    /**
+     * Employeeマッパー
+     */
+    @Autowired
+    EmployeeMapper employeeMapper;
 
     /**
      * 会社一覧を取得
      *
      * @return
      */
+    @Transactional
     public List<Company> findAll() {
-        return CompanyMapper.findAll();
+        return companyMapper.findAll();
     }
 
     /**
@@ -33,8 +46,9 @@ public class CompanyService {
      * @param prefectureCode
      * @return
      */
+    @Transactional
     public List<Company> findBySearch(String name, String representative, String prefectureCode) {
-        return CompanyMapper.findBySearch(name, representative, prefectureCode);
+        return companyMapper.findBySearch(name, representative, prefectureCode);
     }
 
     /**
@@ -43,8 +57,9 @@ public class CompanyService {
      * @param id
      * @return
      */
+    @Transactional
     public Company findById(int id) {
-        return CompanyMapper.findById(id);
+        return companyMapper.findById(id);
     }
 
     /**
@@ -52,8 +67,9 @@ public class CompanyService {
      *
      * @param company
      */
+    @Transactional
     public void insert(Company company) {
-        CompanyMapper.insert(company);
+        companyMapper.insert(company);
     }
 
     /**
@@ -61,8 +77,9 @@ public class CompanyService {
      *
      * @param companies
      */
+    @Transactional
     public void bulkInsert(List<Company> companies) {
-        CompanyMapper.bulkInsert(companies);
+        companyMapper.bulkInsert(companies);
     }
 
     /**
@@ -70,8 +87,9 @@ public class CompanyService {
      *
      * @param company
      */
+    @Transactional
     public void update(Company company) {
-        CompanyMapper.update(company);
+        companyMapper.update(company);
     }
 
     /**
@@ -79,7 +97,11 @@ public class CompanyService {
      *
      * @param id
      */
+    @Transactional
     public void delete(int id) {
-        CompanyMapper.delete(id);
+        companyMapper.delete(id);
+
+        // 会社に紐付く社員も削除
+        employeeMapper.deleteByCompanyId(id);
     }
 }
