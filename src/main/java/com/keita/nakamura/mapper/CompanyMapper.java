@@ -24,7 +24,7 @@ public interface CompanyMapper {
      * @param prefectureCode
      * @return
      */
-    List<Company> findBySearch(String name, String representative, String prefectureCode);
+    List<Company> findBySearch(String name, String representative, String prefectureId);
 
     /**
      * IDより会社を1件取得

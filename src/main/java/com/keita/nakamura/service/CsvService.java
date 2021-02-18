@@ -111,7 +111,7 @@ public class CsvService {
                 pw.print(COMMA);
                 pw.print(company.getPostalCode());
                 pw.print(COMMA);
-                pw.print(company.getPrefectureCode());
+                pw.print(company.getPrefectureId());
                 pw.print(COMMA);
                 pw.print(company.getAddress());
                 pw.print(COMMA);
