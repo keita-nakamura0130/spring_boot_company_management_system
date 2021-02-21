@@ -32,9 +32,9 @@
         VALUES (#{prefectureId}, #{name}, #{representative}, #{phoneNumber}, #{postalCode}, #{address}, #{mailAddress}, NOW(), NOW());
     </insert>
     <insert id="bulkInsert">
-        INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified) VALUES
+        INSERT INTO companies (prefecture_id, name, representative, phone_number, postal_code, address, mail_address, created, modified) VALUES
         <foreach item="company" collection="list" separator=",">
-            (1, #{company.name}, #{company.representative}, #{company.phoneNumber}, #{company.postalCode}, #{company.prefectureCode}, #{company.address}, #{company.mailAddress}, NOW(), NOW())
+            (#{company.prefectureId}, #{company.name}, #{company.representative}, #{company.phoneNumber}, #{company.postalCode}, #{company.address}, #{company.mailAddress}, NOW(), NOW())
         </foreach>
         ;
     </insert>

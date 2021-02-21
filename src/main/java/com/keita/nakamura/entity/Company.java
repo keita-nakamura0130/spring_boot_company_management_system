@@ -87,7 +87,6 @@ public class Company {
      * 引数なしコンストラクタ
      */
     public Company() {
-
     }
 
     /**
@@ -101,8 +100,8 @@ public class Company {
      * @param address
      * @param mailAddress
      */
-    public Company(Integer prefectureId, String name, String representative, String phoneNumber, String postalCode, String address, String mailAddress) {
-        this.prefectureId = prefectureId;
+    public Company(String prefectureId, String name, String representative, String phoneNumber, String postalCode, String address, String mailAddress) {
+        this.prefectureId = Integer.parseInt(prefectureId);
         this.name = name;
         this.representative = representative;
         this.phoneNumber = phoneNumber;
