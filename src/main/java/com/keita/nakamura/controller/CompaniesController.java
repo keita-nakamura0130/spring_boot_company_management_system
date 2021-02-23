@@ -117,7 +117,7 @@ public class CompaniesController {
     public String create(Model model) {
         Company company = new Company();
         model.addAttribute("company", company);
-        
+
         List<Prefecture> prefectures = prefectureService.findAll();
         model.addAttribute("prefectures", prefectures);
 
@@ -160,6 +160,9 @@ public class CompaniesController {
         Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
+
         return "companies/edit";
     }
 
@@ -173,8 +176,11 @@ public class CompaniesController {
      */
     @PostMapping(value = "/companies/edit/{id}")
     public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
+
             return "companies/edit";
         }
         companyService.update(company);

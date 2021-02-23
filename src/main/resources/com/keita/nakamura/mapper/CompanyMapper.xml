@@ -40,7 +40,7 @@
     </insert>
     <update id="update">
         UPDATE companies
-        SET name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        SET prefecture_id = #{prefectureId}, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
         WHERE id = #{id};
     </update>
     <delete id="delete">
