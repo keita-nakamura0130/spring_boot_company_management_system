@@ -40,6 +40,13 @@
         </div><!-- /.container-fluid -->
       </section>
 
+      <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p th:text="${error}" class="mb-0"></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
