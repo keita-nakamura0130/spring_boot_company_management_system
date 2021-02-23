@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 // ログイン不要でアクセス可能に設定
-                .antMatchers("/login", "/companies/index", "/users/**").permitAll()
+                .antMatchers("/login", "/users/**").permitAll()
                 // 上記以外は直リンク禁止
                 .anyRequest().authenticated()
             .and()
