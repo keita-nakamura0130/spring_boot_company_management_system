@@ -53,17 +53,18 @@ public class CsvService {
         String line = null;
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(csv.getInputStream()))) {
+            int i = 0;
             while ((line = br.readLine()) != null) {
-                String[] column = line.split(COMMA);
+                if (i != 0) {
+                    String[] column = line.split(COMMA);
 
-                // [0]会社名, [1]代表者, [2]電話番号, [3]郵便番号, [4]都道府県コード, [5]住所, [6]メールアドレス
-                Company company = new Company(column[0], column[1], column[2], column[3], column[4], column[5], column[6]);
+                    // [4]都道府県コード, [0]会社名, [1]代表者, [2]電話番号, [3]郵便番号, [5]住所, [6]メールアドレス
+                    Company company = new Company(column[4], column[0], column[1], column[2], column[3], column[5], column[6]);
 
-                companies.add(company);
+                    companies.add(company);
+                }
+                i++;
             }
-
-            // ヘッダーを削除
-            companies.remove(0);
 
         } catch (FileNotFoundException e) {
             System.out.println("CSVを正しく読み込めませんでした。");
@@ -111,7 +112,7 @@ public class CsvService {
                 pw.print(COMMA);
                 pw.print(company.getPostalCode());
                 pw.print(COMMA);
-                pw.print(company.getPrefectureCode());
+                pw.print(company.getPrefectureId());
                 pw.print(COMMA);
                 pw.print(company.getAddress());
                 pw.print(COMMA);

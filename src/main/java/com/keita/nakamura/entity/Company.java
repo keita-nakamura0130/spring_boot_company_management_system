@@ -2,6 +2,7 @@ package com.keita.nakamura.entity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -16,7 +17,13 @@ public class Company {
     /**
      * ID
      */
-    private int id;
+    private Integer id;
+
+    /**
+     * 都道府県ID
+     */
+    @NotNull(message = "必須入力です")
+    private Integer prefectureId;
 
     /**
      * 会社名
@@ -45,13 +52,6 @@ public class Company {
     @NotBlank(message = "必須入力です")
     @Size(max = 7, message="7文字以内で入力してください")
     private String postalCode;
-
-    /**
-     * 都道府県コード
-     */
-    @NotBlank(message = "必須入力です")
-    @Size(max = 2, message="選択してください")
-    private String prefectureCode;
 
     /**
      * 住所
@@ -87,26 +87,25 @@ public class Company {
      * 引数なしコンストラクタ
      */
     public Company() {
-
     }
 
     /**
      * コンストラクタ
      *
+     * @param prefectureId
      * @param name
      * @param representative
      * @param phoneNumber
      * @param postalCode
-     * @param prefectureCode
      * @param address
      * @param mailAddress
      */
-    public Company(String name, String representative, String phoneNumber, String postalCode, String prefectureCode, String address, String mailAddress) {
+    public Company(String prefectureId, String name, String representative, String phoneNumber, String postalCode, String address, String mailAddress) {
+        this.prefectureId = Integer.parseInt(prefectureId);
         this.name = name;
         this.representative = representative;
         this.phoneNumber = phoneNumber;
         this.postalCode = postalCode;
-        this.prefectureCode = prefectureCode;
         this.address = address;
         this.mailAddress = mailAddress;
     }

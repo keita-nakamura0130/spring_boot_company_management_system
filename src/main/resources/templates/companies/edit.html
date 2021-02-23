@@ -79,65 +79,19 @@
                     <div class="form-group">
                       <label for="postalCode">郵便番号</label>
                       <input type="text" name="postalCode" th:value="${company.postalCode}" id="postalCode"
-                        class="form-control" onKeyUp="AjaxZip3.zip2addr(this,'','prefectureCode','address');">
+                        class="form-control" onKeyUp="AjaxZip3.zip2addr(this,'','prefectureId','address');">
                       <div th:if="${#fields.hasErrors('postalCode')}" th:errors="${company.postalCode}"
                         class="has-error"></div>
                     </div>
 
                     <div class="form-group">
-                      <label for="prefectureCode">都道府県</label>
-                      <select name="prefectureCode" id="prefectureCode" class="form-control">
-                        <option value="">選択してください</option>
-                        <option value="1" th:selected="${company.prefectureCode == '1'}">北海道</option>
-                        <option value="2" th:selected="${company.prefectureCode == '2'}">青森県</option>
-                        <option value="3" th:selected="${company.prefectureCode == '3'}">岩手県</option>
-                        <option value="4" th:selected="${company.prefectureCode == '4'}">宮城県</option>
-                        <option value="5" th:selected="${company.prefectureCode == '5'}">秋田県</option>
-                        <option value="6" th:selected="${company.prefectureCode == '6'}">山形県</option>
-                        <option value="7" th:selected="${company.prefectureCode == '7'}">福島県</option>
-                        <option value="8" th:selected="${company.prefectureCode == '8'}">茨城県</option>
-                        <option value="9" th:selected="${company.prefectureCode == '9'}">栃木県</option>
-                        <option value="10" th:selected="${company.prefectureCode == '10'}">群馬県</option>
-                        <option value="11" th:selected="${company.prefectureCode == '11'}">埼玉県</option>
-                        <option value="12" th:selected="${company.prefectureCode == '12'}">千葉県</option>
-                        <option value="13" th:selected="${company.prefectureCode == '13'}">東京都</option>
-                        <option value="14" th:selected="${company.prefectureCode == '14'}">神奈川県</option>
-                        <option value="15" th:selected="${company.prefectureCode == '15'}">新潟県</option>
-                        <option value="16" th:selected="${company.prefectureCode == '16'}">富山県</option>
-                        <option value="17" th:selected="${company.prefectureCode == '17'}">石川県</option>
-                        <option value="18" th:selected="${company.prefectureCode == '18'}">福井県</option>
-                        <option value="19" th:selected="${company.prefectureCode == '19'}">山梨県</option>
-                        <option value="20" th:selected="${company.prefectureCode == '20'}">長野県</option>
-                        <option value="21" th:selected="${company.prefectureCode == '21'}">岐阜県</option>
-                        <option value="22" th:selected="${company.prefectureCode == '22'}">静岡県</option>
-                        <option value="23" th:selected="${company.prefectureCode == '23'}">愛知県</option>
-                        <option value="24" th:selected="${company.prefectureCode == '24'}">三重県</option>
-                        <option value="25" th:selected="${company.prefectureCode == '25'}">滋賀県</option>
-                        <option value="26" th:selected="${company.prefectureCode == '26'}">京都府</option>
-                        <option value="27" th:selected="${company.prefectureCode == '27'}">大阪府</option>
-                        <option value="28" th:selected="${company.prefectureCode == '28'}">兵庫県</option>
-                        <option value="29" th:selected="${company.prefectureCode == '29'}">奈良県</option>
-                        <option value="30" th:selected="${company.prefectureCode == '30'}">和歌山県</option>
-                        <option value="31" th:selected="${company.prefectureCode == '31'}">鳥取県</option>
-                        <option value="32" th:selected="${company.prefectureCode == '32'}">島根県</option>
-                        <option value="33" th:selected="${company.prefectureCode == '33'}">岡山県</option>
-                        <option value="34" th:selected="${company.prefectureCode == '34'}">広島県</option>
-                        <option value="35" th:selected="${company.prefectureCode == '35'}">山口県</option>
-                        <option value="36" th:selected="${company.prefectureCode == '36'}">徳島県</option>
-                        <option value="37" th:selected="${company.prefectureCode == '37'}">香川県</option>
-                        <option value="38" th:selected="${company.prefectureCode == '38'}">愛媛県</option>
-                        <option value="39" th:selected="${company.prefectureCode == '39'}">高知県</option>
-                        <option value="40" th:selected="${company.prefectureCode == '40'}">福岡県</option>
-                        <option value="41" th:selected="${company.prefectureCode == '41'}">佐賀県</option>
-                        <option value="42" th:selected="${company.prefectureCode == '42'}">長崎県</option>
-                        <option value="43" th:selected="${company.prefectureCode == '43'}">熊本県</option>
-                        <option value="44" th:selected="${company.prefectureCode == '44'}">大分県</option>
-                        <option value="45" th:selected="${company.prefectureCode == '45'}">宮崎県</option>
-                        <option value="46" th:selected="${company.prefectureCode == '46'}">鹿児島県</option>
-                        <option value="47" th:selected="${company.prefectureCode == '47'}">沖縄県</option>
+                      <label for="prefectureId">都道府県</label>
+                      <select name="prefectureId" id="prefectureId" class="form-control">
+                        <option value="" selected>選択してください</option>
+                        <option th:each="prefecture : ${prefectures}" th:value="${prefecture.id}"
+                          th:selected="${company.prefectureId == prefecture.id}" th:text="${prefecture.name}"></option>
                       </select>
-                      <div th:if="${#fields.hasErrors('prefectureCode')}" th:errors="${company.prefectureCode}"
-                        class="has-error"></div>
+                      <div th:if="${#fields.hasErrors('prefectureId')}" th:errors="${company.prefectureId}" class="has-error"></div>
                     </div>
 
                     <div class="form-group">

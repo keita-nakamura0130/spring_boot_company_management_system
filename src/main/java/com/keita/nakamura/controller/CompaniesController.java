@@ -21,8 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keita.nakamura.entity.Company;
+import com.keita.nakamura.entity.Prefecture;
 import com.keita.nakamura.service.CompanyService;
 import com.keita.nakamura.service.CsvService;
+import com.keita.nakamura.service.PrefectureService;
 
 /**
  * Companiesコントローラー
@@ -35,6 +37,9 @@ public class CompaniesController {
      */
     @Autowired
     CompanyService companyService;
+
+    @Autowired
+    PrefectureService prefectureService;
 
     /**
      * CSVサービス
@@ -68,16 +73,18 @@ public class CompaniesController {
     @GetMapping(value = "/companies/index")
     public String index(Model model, @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "representative", required = false) String representative,
-            @RequestParam(name = "prefectureCode", required = false) String prefectureCode) {
+            @RequestParam(name = "prefectureId", required = false) String prefectureId) {
         List<Company> companies = null;
-        if (name != null || representative != null || prefectureCode != null) {
-            companies = companyService.findBySearch(name, representative, prefectureCode);
-            model.addAttribute("prefectureCode", prefectureCode);
+        if (name != null || representative != null || prefectureId != null) {
+            companies = companyService.findBySearch(name, representative, prefectureId);
+            model.addAttribute("prefectureCode", prefectureId);
         } else {
             companies = companyService.findAll();
         }
         model.addAttribute("companies", companies);
 
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
         model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "companies/index";
@@ -111,6 +118,9 @@ public class CompaniesController {
         Company company = new Company();
         model.addAttribute("company", company);
 
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
+
         return "companies/create";
     }
 
@@ -124,8 +134,11 @@ public class CompaniesController {
      */
     @PostMapping(value = "/companies/create")
     public String store(@ModelAttribute @Validated Company company, BindingResult bidingResult,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
+
             return "companies/create";
         }
         companyService.insert(company);
@@ -147,6 +160,9 @@ public class CompaniesController {
         Company company = companyService.findById(id);
         model.addAttribute("company", company);
 
+        List<Prefecture> prefectures = prefectureService.findAll();
+        model.addAttribute("prefectures", prefectures);
+
         return "companies/edit";
     }
 
@@ -160,8 +176,11 @@ public class CompaniesController {
      */
     @PostMapping(value = "/companies/edit/{id}")
     public String update(@ModelAttribute @Validated Company company, BindingResult bidingResult,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, Model model) {
         if (bidingResult.hasErrors()) {
+            List<Prefecture> prefectures = prefectureService.findAll();
+            model.addAttribute("prefectures", prefectures);
+
             return "companies/edit";
         }
         companyService.update(company);

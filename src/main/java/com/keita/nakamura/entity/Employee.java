@@ -24,31 +24,31 @@ public class Employee {
     /**
      * 会社ID
      */
-    @NotNull(message ="必須入力です")
+    @NotNull(message = "必須入力です")
     private Integer companyId;
 
     /**
      * 役職ID
      */
-    @NotNull(message ="必須入力です")
+    @NotNull(message = "必須入力です")
     private Integer positionId;
 
     /**
      * 部署ID
      */
-    @NotNull(message ="必須入力です")
+    @NotNull(message = "必須入力です")
     private Integer departmentId;
 
     /**
      * 雇用形態ID
      */
-    @NotNull(message ="必須入力です")
+    @NotNull(message = "必須入力です")
     private Integer employmentStatusId;
 
     /**
      * 都道府県ID
      */
-    @NotNull(message ="必須入力です")
+    @NotNull(message = "必須入力です")
     @Max(47)
     private Integer prefectureId;
 

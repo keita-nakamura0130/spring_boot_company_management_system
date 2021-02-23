@@ -16,8 +16,8 @@
                 <if test="representative != null and representative != ''">
                     OR representative LIKE '%${representative}%'
                 </if>
-                <if test="prefectureCode != null and prefectureCode != ''">
-                    OR prefecture_code = #{prefectureCode}
+                <if test="prefectureId != null and prefectureId != ''">
+                    OR prefecture_id = #{prefectureId}
                 </if>
             </trim>
             AND deleted is NULL
@@ -28,19 +28,19 @@
         SELECT * FROM companies WHERE id = #{id} AND deleted is NULL;
     </select>
     <insert id="insert">
-        INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified)
-        VALUES (1, #{name}, #{representative}, #{phoneNumber}, #{postalCode}, #{prefectureCode}, #{address}, #{mailAddress}, NOW(), NOW());
+        INSERT INTO companies (prefecture_id, name, representative, phone_number, postal_code, address, mail_address, created, modified)
+        VALUES (#{prefectureId}, #{name}, #{representative}, #{phoneNumber}, #{postalCode}, #{address}, #{mailAddress}, NOW(), NOW());
     </insert>
     <insert id="bulkInsert">
-        INSERT INTO companies (user_id, name, representative, phone_number, postal_code, prefecture_code, address, mail_address, created, modified) VALUES
+        INSERT INTO companies (prefecture_id, name, representative, phone_number, postal_code, address, mail_address, created, modified) VALUES
         <foreach item="company" collection="list" separator=",">
-            (1, #{company.name}, #{company.representative}, #{company.phoneNumber}, #{company.postalCode}, #{company.prefectureCode}, #{company.address}, #{company.mailAddress}, NOW(), NOW())
+            (#{company.prefectureId}, #{company.name}, #{company.representative}, #{company.phoneNumber}, #{company.postalCode}, #{company.address}, #{company.mailAddress}, NOW(), NOW())
         </foreach>
         ;
     </insert>
     <update id="update">
         UPDATE companies
-        SET name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, prefecture_code = #{prefectureCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        SET prefecture_id = #{prefectureId}, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
         WHERE id = #{id};
     </update>
     <delete id="delete">
