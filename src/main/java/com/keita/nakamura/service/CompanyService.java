@@ -47,7 +47,7 @@ public class CompanyService {
      * @return
      */
     @Transactional
-    public List<Company> findBySearch(String name, String representative, String prefectureId) {
+    public List<Company> findBySearch(String name, String representative, Integer prefectureId) {
         return companyMapper.findBySearch(name, representative, prefectureId);
     }
 

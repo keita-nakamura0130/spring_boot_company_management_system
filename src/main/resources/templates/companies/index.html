@@ -77,54 +77,9 @@
                     <div class="form-group">
                       <label for="prefectureId">都道府県</label>
                       <select name="prefectureId" id="prefectureId" class="form-control">
-                        <option value="">選択してください</option>
-                        <option value="1" th:selected="${prefectureId == '1'}">北海道</option>
-                        <option value="2" th:selected="${prefectureId == '2'}">青森県</option>
-                        <option value="3" th:selected="${prefectureId == '3'}">岩手県</option>
-                        <option value="4" th:selected="${prefectureId == '4'}">宮城県</option>
-                        <option value="5" th:selected="${prefectureId == '5'}">秋田県</option>
-                        <option value="6" th:selected="${prefectureId == '6'}">山形県</option>
-                        <option value="7" th:selected="${prefectureId == '7'}">福島県</option>
-                        <option value="8" th:selected="${prefectureId == '8'}">茨城県</option>
-                        <option value="9" th:selected="${prefectureId == '9'}">栃木県</option>
-                        <option value="10" th:selected="${prefectureId == '10'}">群馬県</option>
-                        <option value="11" th:selected="${prefectureId == '11'}">埼玉県</option>
-                        <option value="12" th:selected="${prefectureId == '12'}">千葉県</option>
-                        <option value="13" th:selected="${prefectureId == '13'}">東京都</option>
-                        <option value="14" th:selected="${prefectureId == '14'}">神奈川県</option>
-                        <option value="15" th:selected="${prefectureId == '15'}">新潟県</option>
-                        <option value="16" th:selected="${prefectureId == '16'}">富山県</option>
-                        <option value="17" th:selected="${prefectureId == '17'}">石川県</option>
-                        <option value="18" th:selected="${prefectureId == '18'}">福井県</option>
-                        <option value="19" th:selected="${prefectureId == '19'}">山梨県</option>
-                        <option value="20" th:selected="${prefectureId == '20'}">長野県</option>
-                        <option value="21" th:selected="${prefectureId == '21'}">岐阜県</option>
-                        <option value="22" th:selected="${prefectureId == '22'}">静岡県</option>
-                        <option value="23" th:selected="${prefectureId == '23'}">愛知県</option>
-                        <option value="24" th:selected="${prefectureId == '24'}">三重県</option>
-                        <option value="25" th:selected="${prefectureId == '25'}">滋賀県</option>
-                        <option value="26" th:selected="${prefectureId == '26'}">京都府</option>
-                        <option value="27" th:selected="${prefectureId == '27'}">大阪府</option>
-                        <option value="28" th:selected="${prefectureId == '28'}">兵庫県</option>
-                        <option value="29" th:selected="${prefectureId == '29'}">奈良県</option>
-                        <option value="30" th:selected="${prefectureId == '30'}">和歌山県</option>
-                        <option value="31" th:selected="${prefectureId == '31'}">鳥取県</option>
-                        <option value="32" th:selected="${prefectureId == '32'}">島根県</option>
-                        <option value="33" th:selected="${prefectureId == '33'}">岡山県</option>
-                        <option value="34" th:selected="${prefectureId == '34'}">広島県</option>
-                        <option value="35" th:selected="${prefectureId == '35'}">山口県</option>
-                        <option value="36" th:selected="${prefectureId == '36'}">徳島県</option>
-                        <option value="37" th:selected="${prefectureId == '37'}">香川県</option>
-                        <option value="38" th:selected="${prefectureId == '38'}">愛媛県</option>
-                        <option value="39" th:selected="${prefectureId == '39'}">高知県</option>
-                        <option value="40" th:selected="${prefectureId == '40'}">福岡県</option>
-                        <option value="41" th:selected="${prefectureId == '41'}">佐賀県</option>
-                        <option value="42" th:selected="${prefectureId == '42'}">長崎県</option>
-                        <option value="43" th:selected="${prefectureId == '43'}">熊本県</option>
-                        <option value="44" th:selected="${prefectureId == '44'}">大分県</option>
-                        <option value="45" th:selected="${prefectureId == '45'}">宮崎県</option>
-                        <option value="46" th:selected="${prefectureId == '46'}">鹿児島県</option>
-                        <option value="47" th:selected="${prefectureId == '47'}">沖縄県</option>
+                        <option value="" selected>選択してください</option>
+                        <option th:each="prefecture : ${prefectures}" th:value="${prefecture.id}"
+                          th:selected="${prefectureId == prefecture.id}" th:text="${prefecture.name}"></option>
                       </select>
                     </div>
                   </div>
