@@ -73,7 +73,7 @@ public class CompaniesController {
     @GetMapping(value = "/companies/index")
     public String index(Model model, @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "representative", required = false) String representative,
-            @RequestParam(name = "prefectureId", required = false) String prefectureId) {
+            @RequestParam(name = "prefectureId", required = false) Integer prefectureId) {
         List<Company> companies = null;
         if (name != null || representative != null || prefectureId != null) {
             companies = companyService.findBySearch(name, representative, prefectureId);
@@ -86,6 +86,9 @@ public class CompaniesController {
         List<Prefecture> prefectures = prefectureService.findAll();
         model.addAttribute("prefectures", prefectures);
         model.addAttribute("PREFECTURES", PREFECTURES);
+
+        // 都道府県検索のselectedに使用
+        model.addAttribute("prefectureId", prefectureId);
 
         return "companies/index";
     }
