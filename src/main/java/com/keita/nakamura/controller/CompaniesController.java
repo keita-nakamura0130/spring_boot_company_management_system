@@ -248,6 +248,11 @@ public class CompaniesController {
 //            return "companies/import";
 //        }
 
+        if (csv.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "CSVインポートに失敗しました。");
+            return "redirect:/companies/import";
+        }
+
         List<Company> companies = csvService.getCompanyInstancesFromCsv(csv);
         companyService.bulkInsert(companies);
 
