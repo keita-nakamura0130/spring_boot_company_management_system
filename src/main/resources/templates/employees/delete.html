@@ -24,7 +24,8 @@
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
     <!-- Navbar -->
-    <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light"></nav>
+    <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light">
+    </nav>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -71,8 +72,31 @@
                         <td th:text="${employee.name}"></td>
                       </tr>
                       <tr>
+                        <td>役職</td>
+                        <td th:text="${position.name}"></td>
+                      </tr>
+                      <tr>
                         <td>部署</td>
-                        <td th:text="${employee.department}"></td>
+                        <td th:text="${department.name}"></td>
+                      </tr>
+                      <tr>
+                        <td>生年月日</td>
+                        <td th:text="${employee.birthday}"></td>
+                      </tr>
+                      <tr>
+                        <td>性別</td>
+                        <td th:if="${employee.sex == '1'}">男性</td>
+                        <td th:if="${employee.sex == '2'}">女性</td>
+                        <td th:if="${employee.sex == '9'}">その他</td>
+                        <td th:if="${employee.sex == '0'}">不明</td>
+                      </tr>
+                      <tr>
+                        <td>血液型</td>
+                        <td th:if="${employee.blood == '1'}">A型</td>
+                        <td th:if="${employee.blood == '2'}">B型</td>
+                        <td th:if="${employee.blood == '3'}">O型</td>
+                        <td th:if="${employee.blood == '4'}">AB型</td>
+                        <td th:if="${employee.blood == '0'}">不明</td>
                       </tr>
                       <tr>
                         <td>電話番号</td>
@@ -84,15 +108,27 @@
                       </tr>
                       <tr>
                         <td>都道府県</td>
-                        <td th:text="${PREFECTURES[employee.prefectureCode]}"></td>
+                        <td th:text="${prefecture.name}"></td>
                       </tr>
                       <tr>
-                        <td>住所</td>
+                        <td>住所(都道府県以降)</td>
                         <td th:text="${employee.address}"></td>
                       </tr>
                       <tr>
                         <td>メールアドレス</td>
                         <td th:text="${employee.mailAddress}"></td>
+                      </tr>
+                      <tr>
+                        <td>雇用形態</td>
+                        <td th:text="${employmentStatus.name}"></td>
+                      </tr>
+                      <tr>
+                        <td>入社日</td>
+                        <td th:text="${employee.joinDate}"></td>
+                      </tr>
+                      <tr>
+                        <td>退職日</td>
+                        <td th:text="${employee.retirementDate}"></td>
                       </tr>
                       <tr>
                         <td>作成日時</td>
@@ -106,7 +142,9 @@
                   </table>
                 </div>
                 <!-- /.card-body -->
-                <form th:action="@{/employees/delete/{companyId}/{id} (companyId = ${employee.companyId}, id = ${employee.id})}" method="POST" th:object="${employee}">
+                <form
+                  th:action="@{/employees/delete/{companyId}/{id} (companyId = ${employee.companyId}, id = ${employee.id})}"
+                  method="POST" th:object="${employee}">
                   <input type="hidden" name="id" th:value=${employee.id}>
                   <div class="card-footer">
                     <button type="submit" class="btn btn-primary">削除</button>

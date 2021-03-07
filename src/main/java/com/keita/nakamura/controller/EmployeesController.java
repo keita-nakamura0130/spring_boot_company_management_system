@@ -204,8 +204,19 @@ public class EmployeesController {
         Employee employee = EmployeeService.findById(id);
         model.addAttribute("employee", employee);
 
+        Position position = positionService.findById(employee.getPositionId());
+        model.addAttribute("position", position);
+
+        Department department = departmentService.findById(employee.getDepartmentId());
+        model.addAttribute("department", department);
+
+        EmploymentStatus employmentStatus = employmentStatusService.findById(employee.getEmploymentStatusId());
+        model.addAttribute("employmentStatus", employmentStatus);
+
+        Prefecture prefecture = prefectureService.findById(employee.getPrefectureId());
+        model.addAttribute("prefecture", prefecture);
+
         model.addAttribute("companyId", companyId);
-        model.addAttribute("PREFECTURES", PREFECTURES);
 
         return "employees/delete";
     }
