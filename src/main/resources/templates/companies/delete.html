@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>会社削除 | 会社管理システム</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
+  <!-- DataTables -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/assets/AdminLTE/dist/css/adminlte.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav th:include="/elements/nav_bar :: nav_bar" class="main-header navbar navbar-expand navbar-white navbar-light"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:include="/elements/side_menu :: side_menu" class="main-sidebar sidebar-dark-primary elevation-4"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>削除</h1>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">会社削除</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table class="table table-bordered table-hover">
+                    <thead>
+                      <tr scope="row">
+                        <th>項目</th>
+                        <th>値</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">ID</th>
+                        <td th:text="${company.id}"></td>
+                      </tr>
+                      <tr>
+                        <td>会社名</td>
+                        <td th:text="${company.name}"></td>
+                      </tr>
+                      <tr>
+                        <td>代表者</td>
+                        <td th:text="${company.representative}"></td>
+                      </tr>
+                      <tr>
+                        <td>電話番号</td>
+                        <td th:text="${company.phoneNumber}"></td>
+                      </tr>
+                      <tr>
+                        <td>郵便番号</td>
+                        <td th:text="${company.postalCode}"></td>
+                      </tr>
+                      <tr>
+                        <td>都道府県</td>
+                        <td th:text="${PREFECTURES[company.prefectureId]}"></td>
+                      </tr>
+                      <tr>
+                        <td>住所</td>
+                        <td th:text="${company.address}"></td>
+                      </tr>
+                      <tr>
+                        <td>メールアドレス</td>
+                        <td th:text="${company.mailAddress}"></td>
+                      </tr>
+                      <tr>
+                        <td>作成日時</td>
+                        <td th:text="${company.created}"></td>
+                      </tr>
+                      <tr>
+                        <td>更新日時</td>
+                        <td th:text="${company.modified}"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+                <form th:action="@{/companies/delete/{id} (id = ${company.id})}" method="POST" th:object="${company}">
+                  <input type="hidden" name="id" th:value=${company.id}>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">削除</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer th:include="/elements/footer :: footer" class="main-footer"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./../wrapper -->
+
+  <!-- jQuery -->
+  <script th:src="@{/assets/AdminLTE/plugins/jquery/jquery.min.js}"></script>
+  <!-- Bootstrap 4 -->
+  <script th:src="@{/assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- DataTables  & Plugins -->
+  <script th:src="@{/assets/AdminLTE/plugins/datatables/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/jszip/jszip.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/pdfmake/pdfmake.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/pdfmake/vfs_fonts.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+  <script th:src="@{/assets/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/assets/AdminLTE/dist/js/adminlte.min.js}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script th:src="@{/assets/AdminLTE/dist/js/demo.js}"></script>
+  <!-- Page specific script -->
+  <script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
+</body>
+
+</html>

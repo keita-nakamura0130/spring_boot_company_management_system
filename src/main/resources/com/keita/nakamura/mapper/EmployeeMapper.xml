@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keita.nakamura.mapper.EmployeeMapper">
+    <select id="findAll" resultType="com.keita.nakamura.entity.Employee">
+        SELECT * FROM employees WHERE company_id = #{companyId} AND deleted is NULL;
+    </select>
+    <select id="findById" resultType="com.keita.nakamura.entity.Employee">
+        SELECT * FROM employees WHERE id = #{id} AND deleted is NULL;
+    </select>
+    <insert id="insert">
+        INSERT INTO employees (company_id, position_id, department_id, employment_status_id, prefecture_id, name, birthday, sex, blood, phone_number, postal_code, address, mail_address, join_date, retirement_date, created, modified)
+        VALUES (#{companyId}, #{positionId}, #{departmentId}, #{employmentStatusId}, #{prefectureId}, #{name}, #{birthday}, #{sex}, #{blood}, #{phoneNumber}, #{postalCode}, #{address}, #{mailAddress}, #{joinDate}, #{retirementDate}, NOW(), NOW());
+    </insert>
+    <update id="update">
+        UPDATE employees
+        SET position_id = #{positionId}, department_id = #{departmentId}, employment_status_id = #{employmentStatusId}, prefecture_id = #{prefectureId}, name = #{name}, birthday = #{birthday}, sex = #{sex}, blood = #{blood}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, address = #{address}, mail_address = #{mailAddress}, join_date = #{joinDate}, retirement_date = #{retirementDate}, modified = NOW()
+        WHERE id = #{id};
+    </update>
+    <delete id="delete">
+        UPDATE employees SET deleted = NOW() WHERE id = #{id};
+    </delete>
+    <delete id="deleteByCompanyId">
+        UPDATE employees SET deleted = NOW() WHERE company_id = #{companyId};
+    </delete>
+</mapper>

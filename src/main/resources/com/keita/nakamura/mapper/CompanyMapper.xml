@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keita.nakamura.mapper.CompanyMapper">
+    <select id="findAll" resultType="com.keita.nakamura.entity.Company">
+        SELECT * FROM companies WHERE deleted is NULL;
+    </select>
+    <select id="findBySearch" resultType="com.keita.nakamura.entity.Company">
+        SELECT * FROM companies
+        <where>
+            <trim prefix=" (" prefixOverrides="OR" suffix=") ">
+                <if test="name != null and name != ''">
+                    OR name LIKE '%${name}%'
+                </if>
+                <if test="representative != null and representative != ''">
+                    OR representative LIKE '%${representative}%'
+                </if>
+                <if test="prefectureId != null and prefectureId != ''">
+                    OR prefecture_id = #{prefectureId}
+                </if>
+            </trim>
+            AND deleted is NULL
+        </where>
+        ;
+    </select>
+    <select id="findById" resultType="com.keita.nakamura.entity.Company">
+        SELECT * FROM companies WHERE id = #{id} AND deleted is NULL;
+    </select>
+    <insert id="insert">
+        INSERT INTO companies (prefecture_id, name, representative, phone_number, postal_code, address, mail_address, created, modified)
+        VALUES (#{prefectureId}, #{name}, #{representative}, #{phoneNumber}, #{postalCode}, #{address}, #{mailAddress}, NOW(), NOW());
+    </insert>
+    <insert id="bulkInsert">
+        INSERT INTO companies (prefecture_id, name, representative, phone_number, postal_code, address, mail_address, created, modified) VALUES
+        <foreach item="company" collection="list" separator=",">
+            (#{company.prefectureId}, #{company.name}, #{company.representative}, #{company.phoneNumber}, #{company.postalCode}, #{company.address}, #{company.mailAddress}, NOW(), NOW())
+        </foreach>
+        ;
+    </insert>
+    <update id="update">
+        UPDATE companies
+        SET prefecture_id = #{prefectureId}, name = #{name}, representative = #{representative}, phone_number = #{phoneNumber}, postal_code = #{postalCode}, address = #{address}, mail_address = #{mailAddress}, modified = NOW()
+        WHERE id = #{id};
+    </update>
+    <delete id="delete">
+        UPDATE companies SET deleted = NOW() WHERE id = #{id};
+    </delete>
+</mapper>
